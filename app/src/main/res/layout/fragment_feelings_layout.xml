@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Header aligned to top -->
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp">
+
+
+            <TextView
+                android:id="@+id/feelings_message_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:text="@string/feelings_message"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+
+
+            <SearchView
+                android:id="@+id/searchView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:queryHint="@string/search_view_hint"
+                android:layout_alignParentRight="true"></SearchView>
+
+
+            <!--<TextView-->
+            <!--android:id="@+id/feelings_date_now_id"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:layout_below="@id/feelings_message_id"-->
+            <!--android:text="Fixed Footer"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:textColor="#000"-->
+            <!--android:textSize="20sp" />-->
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!-- Content below header and above footer -->
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+
+
+        <GridView
+            android:id="@+id/gridview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="1"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp"
+            android:layout_alignParentTop="true" />
+    </RelativeLayout>
+
+</RelativeLayout>
+
+
+
+
