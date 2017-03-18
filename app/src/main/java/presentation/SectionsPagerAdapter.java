@@ -29,6 +29,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         context = nContext;
         listfragments = lfragments;
+
     }
 
     /**
@@ -72,4 +73,6 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         }
         return null;
     }
+
+
 }

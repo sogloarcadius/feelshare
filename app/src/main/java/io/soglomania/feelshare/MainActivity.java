@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     // le conteneur de fragments
     private ViewPager mViewPager;
 
+    // Création de la liste de Fragments que fera défiler le PagerAdapter
+    List fragments = new Vector();
     // constructeur
     public MainActivity() {
         Log.d("MainActivity", "constructor");
@@ -75,13 +77,18 @@ public class MainActivity extends AppCompatActivity {
                     AccessToken currentAccessToken) {
 
                 if (currentAccessToken == null) {
+
+//                    refreshLoginView();
                     //User logged out
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("userID", null);
-                    editor.putString("userName", null);
-                    editor.putString("email", null);
+                    editor.remove("userID").remove("userName").remove("email");
+
+//                    editor.putString("userID", null);
+//                    editor.putString("userName", null);
+//                    editor.putString("email", null);
                     editor.commit();
                     Toast.makeText(getApplicationContext(), getString(R.string.success_logout_message), Toast.LENGTH_LONG).show();
+
 
                 }
             }
@@ -103,7 +110,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
-
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
@@ -112,11 +118,13 @@ public class MainActivity extends AppCompatActivity {
                                     userID = (String) object.get("id");
                                     userName = (String) object.get("name");
                                     email = (String) object.get("email");
+
                                     SharedPreferences.Editor editor = sharedPref.edit();
                                     editor.putString("userID", userID);
                                     editor.putString("userName", userName);
                                     editor.putString("email", email);
                                     editor.commit();
+
                                     Toast.makeText(getApplicationContext(), getString(R.string.success_login_message, userName), Toast.LENGTH_LONG).show();
                                     Log.v("LoginActivity", response.toString());
                                 } catch (JSONException e) {
@@ -143,8 +151,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Création de la liste de Fragments que fera défiler le PagerAdapter
-        List fragments = new Vector();
 
         // Ajout des Fragments dans la liste
         fragments.add(AccountFragment.newInstance("Account"));
@@ -220,37 +226,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-//        if(getFragmentManager().getBackStackEntryCount() == 0) {
-//
-
-//        }
-
-//        if (getFragmentManager().getBackStackEntryCount()>0 ) {
-//            getFragmentManager().popBackStack();
-//            Log.v("Feels", "nok");
-//        }
-//        else {
-        //Ask the user if they want to quit
-        new AlertDialog.Builder(this)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(R.string.quit)
-                .setMessage(R.string.really_quit)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        //Stop the activity
-                        MainActivity.this.finish();
-                    }
-
-                })
-                .setNegativeButton(R.string.no, null)
-                .show();
-        Log.v("Feels", "ok");
-
-//            super.onBackPressed();
-
-//        }
+        if (getFragmentManager().getBackStackEntryCount() == 0) {
+            //Ask the user if they want to quit
+            new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.ic_exit_to_app_black_24dp)
+                    .setTitle(R.string.exit_dialog_title)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //Stop the activity
+                            MainActivity.this.finish();
+                        }
+                    })
+                    .setNegativeButton(R.string.no, null)
+                    .show();
+        } else {
+            super.onBackPressed();
+        }
     }
 }

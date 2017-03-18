@@ -36,6 +36,7 @@ public class AccountFragment extends Fragment {
 
     private SharedPreferences sharedPref;
 
+
     public AccountFragment() {
         // Empty constructor required for fragment subclasses
     }
@@ -44,6 +45,7 @@ public class AccountFragment extends Fragment {
 
         //allow us to not forget to pass needed parameter to our fragment
         Fragment fragment = new AccountFragment();
+
         return fragment;
     }
 
