@@ -42,7 +42,14 @@
     <string name="no">No</string>
     <string name="general_settings">General Settings </string>
     <string name="user_settings">User Settings </string>
+    <string name="no_app">No app to share.</string>
 
+
+    <!-- === Custom Dialog === -->
+
+    <string name="dialog_log_share"><![CDATA[Log & Share]]></string>
+    <string name="dialog_log">Log</string>
+    <string name="dialog_log_message">Moods logged successfully :)</string>
 
     <!-- =====    Feelings =====  -->
 
@@ -73,6 +80,7 @@
 
     <string name="search_view_hint">Search here</string>
 
+
     <!--  =====   Settings    =====  -->
 
 
@@ -84,5 +92,6 @@
     <string name="conditions_desc">You agree with the followings usage conditions.</string>
     <string name="share_title">Share</string>
     <string name="share_desc">Share with your friends !</string>
+
 
 </resources>
