@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 //                    editor.putString("userID", null);
 //                    editor.putString("userName", null);
 //                    editor.putString("email", null);
-                    editor.commit();
+                    editor.apply();//handle it in background
                     Toast.makeText(getApplicationContext(), getString(R.string.success_logout_message), Toast.LENGTH_LONG).show();
 
 
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                                     editor.putString("userID", userID);
                                     editor.putString("userName", userName);
                                     editor.putString("email", email);
-                                    editor.commit();
+                                    editor.apply(); //handle it in background
 
                                     Toast.makeText(getApplicationContext(), getString(R.string.success_login_message, userName), Toast.LENGTH_LONG).show();
                                     Log.v("LoginActivity", response.toString());

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FeelShare</string>
+    <string name="about_desc">Saber mas sobre FeelShare</string>
+    <string name="about_title">Acerca de</string>
+    <string name="account_feelshare_desc"></string>
+    <string name="action_notification">Mostrar notificaciones</string>
+    <string name="action_settings">Configurar</string>
+    <string name="conditions_desc">Acceptas las condiciones de usos.</string>
+    <string name="conditions_title">Condiciones</string>
+    <string name="user_settings"></string>
+    <string name="title_section4">Soporte</string>
+    <string name="title_section3">Graficos</string>
+    <string name="title_section2">Emociones</string>
+    <string name="title_section1">Cuenta</string>
+    <string name="feelings_message">Compartir tus emociones</string>
+    <string name="feelings_greeting_user"></string>
+    <string name="facebook_error">Intenta mas tarde</string>
+    <string name="exit_dialog_title">FeelShare</string>
+    <string name="excited_desc"></string>
+    <string name="dialog_log_message">Emocion guardado con exitò</string>
+    <string name="share_title">Compatir</string>
+    <string name="help_title">Ayuda</string>
+</resources>
