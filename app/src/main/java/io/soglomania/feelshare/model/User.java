@@ -1,4 +1,4 @@
-package domain;
+package io.soglomania.feelshare.model;
 
 /**
  * Created by sogloarcadius on 18/03/17.

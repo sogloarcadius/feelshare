@@ -1,4 +1,4 @@
-package presentation;
+package io.soglomania.feelshare.support;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;

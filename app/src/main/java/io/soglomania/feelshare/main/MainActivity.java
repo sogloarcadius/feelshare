@@ -1,4 +1,4 @@
-package io.soglomania.feelshare;
+package io.soglomania.feelshare.main;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,11 +32,12 @@ import org.json.JSONObject;
 import java.util.List;
 import java.util.Vector;
 
-import presentation.AccountFragment;
-import presentation.ChartsFragment;
-import presentation.FeelingsFragment;
-import presentation.SectionsPagerAdapter;
-import presentation.SupportFragment;
+import io.realm.SyncConfiguration;
+import io.soglomania.feelshare.R;
+import io.soglomania.feelshare.account.AccountFragment;
+import io.soglomania.feelshare.charts.ChartsFragment;
+import io.soglomania.feelshare.feelings.FeelingsFragment;
+import io.soglomania.feelshare.support.SupportFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
     private String userID;
     private String userName;
     private String email;
+
+    private Integer[] moodsUID;
+    private String[] moodsNames;
+    private String[] moodsDesc;
+    private Integer[] moodsImages;
+
+    SyncConfiguration syncConfiguration;
+
     CallbackManager callbackManager;
 
     private SharedPreferences sharedPref;
@@ -57,44 +66,134 @@ public class MainActivity extends AppCompatActivity {
 
     // Création de la liste de Fragments que fera défiler le PagerAdapter
     List fragments = new Vector();
+
+
+    public MyApplication context;
+
     // constructeur
     public MainActivity() {
-        Log.d("MainActivity", "constructor");
+        Log.d(MyApplication.TAG, "constructor");
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("MainActivity", "onCreate");
+        Log.d(MyApplication.TAG, "onCreate");
+
+        //references to moods ID
+        moodsUID = new Integer[]{
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                18,
+                19,
+                20,
+                21
+        };
+
+        // ==references to our images title
+        moodsNames = new String[]{
+                getResources().getString(R.string.afraid),
+                getResources().getString(R.string.angry),
+                getResources().getString(R.string.bore),
+                getResources().getString(R.string.naughty),
+                getResources().getString(R.string.confused),
+                getResources().getString(R.string.cool),
+                getResources().getString(R.string.crying),
+                getResources().getString(R.string.depression),
+                getResources().getString(R.string.excited),
+                getResources().getString(R.string.frustated),
+                getResources().getString(R.string.funny),
+                getResources().getString(R.string.happy),
+                getResources().getString(R.string.hungry),
+                getResources().getString(R.string.neutral),
+                getResources().getString(R.string.romantic),
+                getResources().getString(R.string.sad),
+                getResources().getString(R.string.scared),
+                getResources().getString(R.string.shy),
+                getResources().getString(R.string.sick),
+                getResources().getString(R.string.sleepy),
+                getResources().getString(R.string.surprised),
+                getResources().getString(R.string.tired)
+        };
+
+        //references to our images
+        moodsImages = new Integer[]{
+                R.drawable.afraid,
+                R.drawable.angry,
+                R.drawable.bored,
+                R.drawable.childish,
+                R.drawable.confused,
+                R.drawable.cool,
+                R.drawable.crying,
+                R.drawable.depressed,
+                R.drawable.excited,
+                R.drawable.frustrated,
+                R.drawable.funny,
+                R.drawable.happy,
+                R.drawable.hungry,
+                R.drawable.neutral,
+                R.drawable.romantic,
+                R.drawable.sad,
+                R.drawable.scared,
+                R.drawable.shy,
+                R.drawable.sick,
+                R.drawable.sleepy,
+                R.drawable.surprised,
+                R.drawable.tired,
+        };
+
+        //reference to descriptions
+        moodsDesc = new String[]{
+                getResources().getString(R.string.afraid_desc),
+                getResources().getString(R.string.angry_desc),
+                getResources().getString(R.string.bore_desc),
+                getResources().getString(R.string.naughty_desc),
+                getResources().getString(R.string.confused_desc),
+                getResources().getString(R.string.cool_desc),
+                getResources().getString(R.string.crying_desc),
+                getResources().getString(R.string.depression_desc),
+                getResources().getString(R.string.excited_desc),
+                getResources().getString(R.string.frustated_desc),
+                getResources().getString(R.string.funny_desc),
+                getResources().getString(R.string.happy_desc),
+                getResources().getString(R.string.hungry_desc),
+                getResources().getString(R.string.neutral_desc),
+                getResources().getString(R.string.romantic_desc),
+                getResources().getString(R.string.sad_desc),
+                getResources().getString(R.string.scared_desc),
+                getResources().getString(R.string.shy_desc),
+                getResources().getString(R.string.sick_desc),
+                getResources().getString(R.string.sleepy_desc),
+                getResources().getString(R.string.surprised_desc),
+                getResources().getString(R.string.tired_desc)
+        };
+
+        context = ((MyApplication) getApplicationContext());
+        context.setMoodsDesc(moodsDesc);
+        context.setMoodsImages(moodsImages);
+        context.setMoodsNames(moodsNames);
+        context.setMoodsUID(moodsUID);
+
         // parent
         super.onCreate(savedInstanceState);
 
         sharedPref = getPreferences(Context.MODE_PRIVATE);
-
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(
-                    AccessToken oldAccessToken,
-                    AccessToken currentAccessToken) {
-
-                if (currentAccessToken == null) {
-
-//                    refreshLoginView();
-                    //User logged out
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.remove("userID").remove("userName").remove("email");
-
-//                    editor.putString("userID", null);
-//                    editor.putString("userName", null);
-//                    editor.putString("email", null);
-                    editor.apply();//handle it in background
-                    Toast.makeText(getApplicationContext(), getString(R.string.success_logout_message), Toast.LENGTH_LONG).show();
-
-
-                }
-            }
-        };
-
-        accessTokenTracker.startTracking();
 
         // vue
         setContentView(R.layout.activity_main);
@@ -110,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
+
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
@@ -118,7 +218,6 @@ public class MainActivity extends AppCompatActivity {
                                     userID = (String) object.get("id");
                                     userName = (String) object.get("name");
                                     email = (String) object.get("email");
-
                                     SharedPreferences.Editor editor = sharedPref.edit();
                                     editor.putString("userID", userID);
                                     editor.putString("userName", userName);
@@ -146,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(), getString(R.string.facebook_error), Toast.LENGTH_LONG).show();
+                Log.e(MyApplication.TAG, getString(R.string.facebook_error));
 
             }
         });
@@ -161,7 +260,6 @@ public class MainActivity extends AppCompatActivity {
         // le gestionnaire de fragments
         mSectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(), getSupportFragmentManager(), fragments);
 
-//    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // le conteneur de fragments est associé au gestionnaire de fragments
         // ç-à-d que le fragment n° i du conteneur de fragments est le fragment n° i délivré par le gestionnaire de fragments
@@ -173,17 +271,37 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-  /*  // bouton flottant
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-          .setAction("Action", null).show();
-      }
-    });*/
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(
+                    AccessToken oldAccessToken,
+                    AccessToken currentAccessToken) {
+
+                if (currentAccessToken == null) {
+
+                    //User logged out
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.remove("userID").remove("userName").remove("email");
+
+                    editor.apply();//handle it in background
+                    Toast.makeText(getApplicationContext(), getString(R.string.success_logout_message, userName), Toast.LENGTH_LONG).show();
+
+
+                }
+            }
+        };
+
+        accessTokenTracker.startTracking();
+
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -213,10 +331,17 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+      /*  //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Log.d("menu", "action_settings selected");
             return true;
+        }*/
+        if (id == R.id.action_share) {
+            Log.d("menu", "action_settings selected");
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, "http://feelshare.soglomania.io");
+            startActivity(Intent.createChooser(intent, getString(R.string.share_app_select)));
         }
         // parent
         return super.onOptionsItemSelected(item);
@@ -244,4 +369,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
+
 }

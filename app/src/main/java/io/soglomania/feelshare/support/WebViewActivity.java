@@ -1,10 +1,8 @@
-package io.soglomania.feelshare;
+package io.soglomania.feelshare.support;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
-import presentation.ArticleFragment;
 
 public class WebViewActivity extends Activity {
 

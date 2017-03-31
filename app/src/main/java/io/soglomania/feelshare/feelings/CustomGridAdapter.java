@@ -1,4 +1,4 @@
-package presentation;
+package io.soglomania.feelshare.feelings;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import domain.Moods;
 import io.soglomania.feelshare.R;
+import io.soglomania.feelshare.model.Moods;
 
 /**
  * Created by sogloarcadius on 08/03/17.
@@ -61,8 +61,8 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable {
         grid = inflater.inflate(R.layout.grid_single, null);
         TextView textView = (TextView) grid.findViewById(R.id.grid_text);
         ImageView imageView = (ImageView) grid.findViewById(R.id.grid_image);
-        textView.setText(_moods.get(position).getDesc());
-        imageView.setImageResource(_moods.get(position).getId());
+        textView.setText(_moods.get(position).getName() + " : " + _moods.get(position).getDesc());
+        imageView.setImageResource(_moods.get(position).getImg());
 //        } else {
 //            grid = (View) convertView;
 //        }
@@ -95,7 +95,8 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable {
                             .contains(constraint.toString().toUpperCase())) {
                         Moods moods = new Moods();
                         moods.setDesc(mStringFilterList.get(i).getDesc());
-                        moods.setId(mStringFilterList.get(i).getId());
+                        moods.setName(mStringFilterList.get(i).getName());
+                        moods.setImg(mStringFilterList.get(i).getImg());
                         filterList.add(moods);
                     }
                 }

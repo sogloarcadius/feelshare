@@ -1,4 +1,4 @@
-package presentation;
+package io.soglomania.feelshare.support;
 
 
 import android.content.Intent;
@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import io.soglomania.feelshare.R;
-import io.soglomania.feelshare.WebViewActivity;
 
 
 /**
@@ -51,8 +50,7 @@ public class SupportFragment extends Fragment {
         data = new String[][]{
                 {getString(R.string.conditions_title), getString(R.string.conditions_desc)},
                 {getString(R.string.help_title), getString(R.string.help_desc)},
-                {getString(R.string.about_title), getString(R.string.about_desc)},
-                {getString(R.string.share_title), getString(R.string.share_desc)}};
+                {getString(R.string.about_title), getString(R.string.about_desc)}};
 
 
         List<HashMap<String, String>> liste = new ArrayList<HashMap<String, String>>();
@@ -98,15 +96,6 @@ public class SupportFragment extends Fragment {
 
                 }
 
-                //share
-
-                else if (position == 3) {
-                    Intent intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_TEXT, "https://www.feelshare.soglomania.io");
-                    startActivity(Intent.createChooser(intent, "Share!"));
-
-                }
             }
         });
 
