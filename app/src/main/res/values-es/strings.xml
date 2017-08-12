@@ -8,12 +8,8 @@
     <string name="conditions_desc">Acceptas las condiciones de usos.</string>
     <string name="conditions_title">Condiciones</string>
     <string name="user_settings">Preferencias</string>
-    <string name="title_section4">Soporte</string>
-    <string name="title_section3">Graficos</string>
-    <string name="title_section2">Emociones</string>
-    <string name="title_section1">Cuenta</string>
     <string name="feelings_message">Compartir tus emociones !</string>
-    <string name="feelings_greeting_user"></string>
+    <string name="feelings_greeting_user">Hola %s</string>
     <string name="facebook_error">Intenta mas tarde ...</string>
     <string name="exit_dialog_title">FeelShare</string>
     <string name="excited_desc">Exaltación y fogosidad del ánimo, excitado por algo que lo admire o cautive</string>
@@ -31,7 +27,7 @@
     <string name="success_logout_message">Desconectado %s !</string>
     <string name="search_view_hint">Buscar aqui</string>
     <string name="share_desc">Compatir con tus amigos</string>
-    <string name="section_format"></string>
+    <string name="section_format">test</string>
     <string name="really_quit">Confirmar ?</string>
     <string name="not_logged">Connectate antes !</string>
     <string name="no_app">Ninguna applicacion corresponde.</string>
@@ -57,7 +53,7 @@
     <string name="funny_desc">Que resulta agradable o atractivo a la vista.</string>
     <string name="happy_desc">Que tiene felicidad.</string>
     <string name="hungry_desc">Gana y necesidad de comer.</string>
-    <string name="intro_message"></string>
+    <string name="intro_message">Feelshare es una applicaciòn que te permite ver como la gente se sienten en el mundo y como sueles sentirte !</string>
     <string name="naughty_desc">De valor negativo, falto de las cualidades que cabe atribuirle por su naturaleza, función o destino.</string>
     <string name="navigation_drawer_close">Abrir menu</string>
     <string name="neutral_desc">Carente de rasgos distintivos o expresivos</string>
@@ -95,4 +91,13 @@
     <string name="surprised">Sorprendido</string>
     <string name="tired">Cansado</string>
     <string name="share_app_select">Seleciona aplicacion para compartir</string>
+    <string name="title_account">Cuenta</string>
+    <string name="title_feelings">Emociones</string>
+    <string name="title_support">Soporte</string>
+    <string name="title_user_charts">Yo</string>
+    <string name="title_world_charts">El Mundo</string>
+    <string name="moods">Emociones</string>
+    <string name="help">Ayuda</string>
+    <string name="licence">Licencia</string>
+    <string name="share">Compartir</string>
 </resources>

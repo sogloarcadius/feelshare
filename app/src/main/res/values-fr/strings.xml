@@ -32,15 +32,11 @@
     <string name="really_quit">Confirmation ?</string>
     <string name="romantic_desc">Qui, par nature, touche la sensibilité et l\'imagination, invite à l\'émotion et à la rêverie, à l\'expression des sentiments</string>
     <string name="search_view_hint">Chercher ici</string>
-    <string name="section_format"></string>
+    <string name="section_format">test</string>
     <string name="share_desc">Partager avec mes amis.</string>
     <string name="share_title">Partager</string>
     <string name="success_login_message">Bienvenue %s !</string>
     <string name="success_logout_message">Déconnection réussi !</string>
-    <string name="title_section1">Compte</string>
-    <string name="title_section2">Emotions</string>
-    <string name="title_section3">Graphique</string>
-    <string name="title_section4">Aide</string>
     <string name="user_settings">Préférences</string>
     <string name="username">Nom d\'utilisateur</string>
     <string name="yes">Oui</string>
@@ -56,11 +52,11 @@
     <string name="depression_desc">État pathologique marqué par une tristesse avec douleur morale, une perte de l\'estime de soi, un ralentissement psychomoteur.</string>
     <string name="email">nom@domaine.fr</string>
     <string name="excited_desc">Grande promptitude à faire quelque chose, allant jusqu\'à la précipitation</string>
-    <string name="feelings_greeting_user"></string>
+    <string name="feelings_greeting_user">Salut %s !</string>
     <string name="funny_desc">État de quelqu\'un qui est frustré, empêché d\'atteindre un but ou de réaliser un désir.</string>
     <string name="happy_desc">Qui jouit du bonheur, qui est durablement content de son sort</string>
     <string name="hungry_desc">Désir ardent de quelque chose, manque de nourriture</string>
-    <string name="intro_message"></string>
+    <string name="intro_message">Feelshare est une application qui te permet de voir l’humeur du monde  et les tiens en tant réel !</string>
     <string name="naughty_desc">Irrégulier, fantaisiste, dont les changements sont brusques, imprévus</string>
     <string name="navigation_drawer_close">Ouvrir menu</string>
     <string name="neutral_desc">"Qui, dans un conflit, une discussion, un désaccord, etc., ne prend parti ni pour l'un ni pour l'autre "</string>
@@ -95,4 +91,13 @@
     <string name="surprised">Surpris</string>
     <string name="tired">Fatigué</string>
     <string name="share_app_select">Selectionez votre application de partage</string>
+    <string name="title_account">Compte</string>
+    <string name="title_feelings">Emotions</string>
+    <string name="title_world_charts">Le Monde</string>
+    <string name="title_user_charts">Moi</string>
+    <string name="title_support">Aide</string>
+    <string name="moods">Emotions</string>
+    <string name="help">Aide</string>
+    <string name="licence">Licence</string>
+    <string name="share">Partager</string>
 </resources>
