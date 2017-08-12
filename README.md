@@ -6,3 +6,11 @@ Arcadius SOGLO.
 
 # Licence
 MIT
+
+# Captures
+
+![account CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/ecran1.png)
+
+![feelings CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/ecran2.png)
+
+![charts CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/ecran3.png)
