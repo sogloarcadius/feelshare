@@ -24,8 +24,8 @@ public class MyApplication extends Application {
 
 
     public static String TAG = "FeelShareMainActivity";
-    public static String AUTH_URL = "http://sogloarcadius.xyz:9080/auth";
-    public static String SERVER_URL = "realm://sogloarcadius.xyz:9080/~/default";
+    public static String AUTH_URL = "http://sogloarcadius.com:9080/auth";
+    public static String SERVER_URL = "realm://sogloarcadius.com:9080/~/default";
 
     @Override
     public void onCreate() {
@@ -36,7 +36,7 @@ public class MyApplication extends Application {
         Thread thread_configure_realm = new Thread(new Runnable() {
             @Override
             public void run() {
-                SyncCredentials myCredentials = SyncCredentials.usernamePassword("feelshare@soglomania.io", "azerty", false);
+                SyncCredentials myCredentials = SyncCredentials.usernamePassword("feelshare@sogloarcadius.com", "5M02i", false);
                 SyncUser user = SyncUser.login(myCredentials, MyApplication.AUTH_URL);
                 Log.v(MyApplication.TAG, user.toJson());
                 syncConfiguration = new SyncConfiguration.Builder(user, MyApplication.SERVER_URL).build();
