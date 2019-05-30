@@ -30,13 +30,15 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        /*
         Realm.init(this);
 
 
         Thread thread_configure_realm = new Thread(new Runnable() {
             @Override
             public void run() {
-                SyncCredentials myCredentials = SyncCredentials.usernamePassword("feelshare@sogloarcadius.com", "5M02i", false);
+                SyncCredentials myCredentials = SyncCredentials.usernamePassword("realm-admin", "", false);
                 SyncUser user = SyncUser.login(myCredentials, MyApplication.AUTH_URL);
                 Log.v(MyApplication.TAG, user.toJson());
                 syncConfiguration = new SyncConfiguration.Builder(user, MyApplication.SERVER_URL).build();
@@ -45,6 +47,7 @@ public class MyApplication extends Application {
         });
 
         thread_configure_realm.start();
+        */
 
         /*RealmConfiguration realmConfiguration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(realmConfiguration);*/

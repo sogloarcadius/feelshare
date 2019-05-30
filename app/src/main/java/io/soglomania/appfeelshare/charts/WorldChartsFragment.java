@@ -45,7 +45,7 @@ import io.soglomania.appfeelshare.model.SaveMood;
  */
 public class WorldChartsFragment extends Fragment {
 
-    Realm realm;
+    //Realm realm;
     PieChart mChartWorld;
 
     public MyApplication context;
@@ -98,7 +98,7 @@ public class WorldChartsFragment extends Fragment {
         mTfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         mTfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
 
-        realm = Realm.getDefaultInstance();
+        //realm = Realm.getDefaultInstance();
 
         mChartWorld = (PieChart) view.findViewById(R.id.chart);
 
@@ -107,7 +107,7 @@ public class WorldChartsFragment extends Fragment {
         configureWorldPieChart();
 
 
-
+        /*
         realm.addChangeListener(new RealmChangeListener<Realm>() {
             @Override
             public void onChange(Realm element) {
@@ -117,11 +117,12 @@ public class WorldChartsFragment extends Fragment {
 
             }
         });
+        */
     }
 
     @Override
     public void onStop() {
-        realm.removeAllChangeListeners();
+        //realm.removeAllChangeListeners();
         super.onStop();
 
     }
@@ -267,6 +268,7 @@ public class WorldChartsFragment extends Fragment {
             counter2.put(moodsUID[i], 0);
         }
 
+        /*
         if (email != null) {
 
             // Build the query looking at all users:
@@ -285,6 +287,7 @@ public class WorldChartsFragment extends Fragment {
             Log.v("moodcounterWorld", counter2.toString());
 
         }
+        */
 
         return counter2;
 

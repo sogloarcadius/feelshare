@@ -45,7 +45,7 @@ import io.soglomania.appfeelshare.model.SaveMood;
  */
 public class UserChartsFragment extends Fragment {
 
-    Realm realm;
+    //Realm realm;
     PieChart mChartUser;
 
     public MyApplication context;
@@ -97,7 +97,7 @@ public class UserChartsFragment extends Fragment {
         mTfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         mTfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
 
-        realm = Realm.getDefaultInstance();
+        //realm = Realm.getDefaultInstance();
 
         mChartUser = (PieChart) view.findViewById(R.id.chartuser);
 
@@ -105,7 +105,7 @@ public class UserChartsFragment extends Fragment {
         //mchartUser
 
         configureUserPieChart();
-
+        /*
         realm.addChangeListener(new RealmChangeListener<Realm>() {
             @Override
             public void onChange(Realm element) {
@@ -114,11 +114,12 @@ public class UserChartsFragment extends Fragment {
                 mChartUser.invalidate(); // refresh
             }
         });
+        */
     }
 
     @Override
     public void onStop() {
-        realm.removeAllChangeListeners();
+        //realm.removeAllChangeListeners();
         super.onStop();
 
     }
@@ -264,6 +265,7 @@ public class UserChartsFragment extends Fragment {
             counter.put(moodsUID[i], 0);
         }
 
+        /*
         if (email != null) {
             // Build the query looking at logged users:
             RealmQuery<SaveMood> queryuser = realm.where(SaveMood.class);
@@ -285,6 +287,7 @@ public class UserChartsFragment extends Fragment {
             Log.v("moodcounterUser", counter.toString());
 
         }
+        */
 
         return counter;
 

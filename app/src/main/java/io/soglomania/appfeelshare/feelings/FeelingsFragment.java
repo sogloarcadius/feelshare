@@ -133,7 +133,7 @@ public class FeelingsFragment extends Fragment {
                 builder.setPositiveButton(R.string.dialog_log, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked send button
-                        UpdateRealmDB(moodsUID[_position]);
+                        //UpdateRealmDB(moodsUID[_position]);
 
                     }
                 });
@@ -141,7 +141,8 @@ public class FeelingsFragment extends Fragment {
                 builder.setNegativeButton(R.string.dialog_share, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User click send and tweet the dialog
-                        Boolean status = UpdateRealmDB(moodsUID[_position]);
+                        Boolean status = true;
+                        //Boolean status = UpdateRealmDB(moodsUID[_position]);
                         if (status) {
 
                             List<Intent> targetShareIntents = new ArrayList<Intent>();
@@ -273,10 +274,11 @@ public class FeelingsFragment extends Fragment {
 
     @Override
     public void onStop() {
+        /*
         if (realmAsyncTask != null && !realmAsyncTask.isCancelled()) {
             realmAsyncTask.cancel();
         }
-
+        */
         super.onStop();
     }
 

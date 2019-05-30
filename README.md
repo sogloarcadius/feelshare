@@ -9,8 +9,7 @@ MIT
 
 # Captures
 
-![account CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/ecran1.png)
+![account CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/screen1.png)
 
-![feelings CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/ecran2.png)
+![feelings CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/screen2.png)
 
-![charts CAPTURE](https://github.com/soglomania/feelshare/blob/master/captures/ecran3.png)
