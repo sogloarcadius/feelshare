@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Header aligned to top -->
-
     <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -19,44 +17,20 @@
             android:paddingLeft="20dp">
 
 
-            <TextView
-                android:id="@+id/feelings_message_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_centerHorizontal="true"
-                android:layout_centerInParent="true"
-                android:layout_alignParentLeft="true"
-                android:text="@string/feelings_message"
-                android:textAppearance="@android:style/TextAppearance.Large" />
-
-
             <SearchView
                 android:id="@+id/searchView1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:layoutDirection="rtl"
+                android:gravity="right"
                 android:layout_centerHorizontal="true"
                 android:layout_centerInParent="true"
                 android:queryHint="@string/search_view_hint"
                 android:layout_alignParentRight="true"></SearchView>
 
 
-            <!--<TextView-->
-            <!--android:id="@+id/feelings_date_now_id"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:layout_below="@id/feelings_message_id"-->
-            <!--android:text="Fixed Footer"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--android:textColor="#000"-->
-            <!--android:textSize="20sp" />-->
-
         </RelativeLayout>
     </RelativeLayout>
-
-    <!-- Content below header and above footer -->
 
     <RelativeLayout
         android:id="@+id/content"

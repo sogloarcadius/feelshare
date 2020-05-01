@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -26,8 +27,6 @@
         <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
     </style>
 
-    <style name="PreferenceScreen" parent="AppTheme">
-        <item name="android:textColor">@color/colorPrimaryLight</item>
-    </style>
+
 
 </resources>
