@@ -10,12 +10,12 @@
     <string name="user_settings">Preferencias</string>
     <string name="feelings_message">Compartir tus emociones !</string>
     <string name="feelings_greeting_user">Hola %s</string>
-    <string name="facebook_error">Intenta mas tarde ...</string>
+    <string name="account_login_error">Intenta mas tarde ...</string>
     <string name="exit_dialog_title">FeelShare</string>
     <string name="excited_desc">Exaltación y fogosidad del ánimo, excitado por algo que lo admire o cautive</string>
     <string name="dialog_log_message">Emocion guardado con exitò</string>
     <string name="share_title">Compatir</string>
-    <string name="help_title">Ayuda</string>
+    <string name="help_title">ayuda</string>
     <string name="chart1_desc">Ver todo tus emociònes</string>
     <string name="chart1_title">Yo</string>
     <string name="chart3_desc">Ver la mapa de sentimientos en el mundo</string>
@@ -23,25 +23,24 @@
     <string name="chart2_desc">Analyzar Sentimientos del mundo</string>
     <string name="yes">Si</string>
     <string name="username">Nombre de usuario</string>
-    <string name="success_login_message">Bienvenido %s !</string>
-    <string name="success_logout_message">Desconectado %s !</string>
+    <string name="account_success_login_message">Bienvenido %s !</string>
+    <string name="account_success_logout_message">Desconectado %s !</string>
     <string name="search_view_hint">Buscar aqui</string>
     <string name="share_desc">Compatir con tus amigos</string>
     <string name="section_format">test</string>
     <string name="really_quit">Confirmar ?</string>
-    <string name="not_logged">Connectate antes !</string>
+    <string name="account_not_logged">Connectate antes !</string>
     <string name="no_app">Ninguna applicacion corresponde.</string>
     <string name="no">No</string>
     <string name="help_desc">Como Feelshare funciona ?</string>
     <string name="hello">Hola !</string>
-    <string name="general_settings">Preferencias general</string>
+    <string name="general_settings">Preferencias</string>
     <string name="dialog_log">Enviar</string>
     <string name="dialog_share">Enviar y tweetear !</string>
     <string name="app_name">Feelshare</string>
     <string name="dialog_fail_log_message">No hemos podido enviar tus emociònes</string>
     <string name="chart3_button">Abrir ...</string>
     <string name="chart3_title">Mapa de sentimientos en el mundo</string>
-    <string name="facebook_app_id">1892985007654083</string>
     <string name="confused_desc">Poco perceptible, difícil de distinguir.</string>
     <string name="afraid_desc">Angustia por un riesgo o daño real o imaginario</string>
     <string name="angry_desc">Molestar, desazonar</string>
@@ -65,7 +64,7 @@
     <string name="sleepy_desc">Muy inclinado a dormir.</string>
     <string name="surprised_desc">Conmover, suspender o maravillar con algo imprevisto, raro o incomprensible</string>
     <string name="tired_desc">Que manifiesta cansancio</string>
-    <string name="already_login">Conectado como %s</string>
+    <string name="account_already_login">Conectado como %s</string>
     <string name="email">nombre@dominio.es</string>
     <string name="navigation_drawer_open">Cerrar menu</string>
     <string name="afraid">Tener miedo</string>
@@ -97,7 +96,19 @@
     <string name="title_user_charts">Yo</string>
     <string name="title_world_charts">El Mundo</string>
     <string name="moods">Emociones</string>
-    <string name="help">Ayuda</string>
+    <string name="help">Feelshare</string>
     <string name="licence">Licencia</string>
     <string name="share">Compartir</string>
+    <string name="account_logout_button">Desconectarse</string>
+    <string name="ok">OK</string>
+    <string name="account_info">
+        <![CDATA[
+        <br/>
+        <strong>Correo</strong>&nbsp;:&nbsp;%s<br/>
+        <br/>
+        <strong>Nombre</strong>&nbsp;:&nbsp;%s<br/>
+        <br/>
+        ]]>
+    </string>
+
 </resources>

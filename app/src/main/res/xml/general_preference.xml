@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General">
+        <CheckBoxPreference
+            android:key="general_notification"
+            android:icon="@drawable/notification_important_24dp"
+            android:title="Newsletter"
+            android:summaryOn="On"
+            android:summaryOff="Off"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

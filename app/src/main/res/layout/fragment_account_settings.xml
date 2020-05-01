@@ -11,6 +11,7 @@
     android:id="@+id/fragment_acount_layout_id">
 
 
+
     <ImageView
         android:id="@+id/account_feelshare_logo"
         android:layout_alignParentTop="true"
@@ -20,36 +21,45 @@
         android:src="@drawable/feelshare_world_green"
         android:layout_margin="10dp" />
 
-    <TextView
-        android:id="@+id/account_feelshare_desc"
-        android:layout_below="@+id/account_feelshare_logo"
-        android:layout_centerInParent="true"
-        android:layout_margin="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/account_feelshare_desc"
-        android:textSize="15sp" />
 
-
-    <TextView
+    <Button
         android:id="@+id/account_info_login"
-        android:layout_below="@id/account_feelshare_desc"
+        android:paddingLeft="4dp"
+        android:background="@color/colorPrimaryLight"
+        android:layout_below="@id/account_feelshare_logo"
         android:layout_centerInParent="true"
         android:layout_margin="15dp"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+        android:text="@string/title_account" />
 
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button_facebook"
-        android:layout_below="@+id/account_info_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+    <Button
+        android:id="@+id/account_preferences"
+        android:paddingLeft="4dp"
+        android:background="@color/colorPrimaryLight"
+        android:layout_below="@id/account_info_login"
         android:layout_centerInParent="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_margin="15dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/settings_black_24"
+        android:text="@string/user_settings" />
+
+
+    <Button
+        android:id="@+id/account_logout_button"
+        android:background="@color/colorPrimaryLight"
+        android:layout_below="@id/account_preferences"
+        android:layout_margin="30dp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/account_logout_button"/>
+
+
+
 
 
 </RelativeLayout>

@@ -26,4 +26,8 @@
         <item name="tabTextAppearance">@style/MyCustomTextAppearance</item>
     </style>
 
+    <style name="PreferenceScreen" parent="AppTheme">
+        <item name="android:textColor">@color/colorPrimaryLight</item>
+    </style>
+
 </resources>
