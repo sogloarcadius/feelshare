@@ -22,7 +22,7 @@
     <string name="account_login_error">Essaye plus tard ...</string>
     <string name="feelings_message">Partagez vos émotions !</string>
     <string name="frustated_desc">État de quelqu\'un qui est frustré, empêché d\'atteindre un but ou de réaliser un désir.</string>
-    <string name="general_settings">Préférences</string>
+    <string name="general_settings">General</string>
     <string name="hello">Salut !</string>
     <string name="help_desc">Comment fonctionne Feelshare ?</string>
     <string name="help_title">aide</string>
@@ -110,4 +110,8 @@
         <br/>
         ]]>
     </string>
+    <string name="account_confirm_delete">Confirmation ?</string>
+    <string name="account_confirm_logout">Confirmation ?</string>
+    <string name="account_delete_button">Supprimer</string>
+    <string name="newsletter">Recevoir la newsletter</string>
 </resources>

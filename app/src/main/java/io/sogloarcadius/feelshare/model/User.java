@@ -1,14 +1,11 @@
 package io.sogloarcadius.feelshare.model;
 
-/**
- * Created by sogloarcadius on 18/03/17.
- */
 
 public class User {
 
 
     private String userName;
-    private String email;
+    private String userEmail;
     private String userID;
 
 
@@ -21,11 +18,11 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return userEmail;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.userEmail = email;
     }
 
     public String getUserID() {

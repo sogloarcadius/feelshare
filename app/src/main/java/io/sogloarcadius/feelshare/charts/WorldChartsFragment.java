@@ -1,21 +1,16 @@
 package io.sogloarcadius.feelshare.charts;
 
-/**
- * Created by sogloarcadius on 12/03/17.
- */
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -25,18 +20,21 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.List;
 import io.sogloarcadius.feelshare.R;
 import io.sogloarcadius.feelshare.main.MyApplication;
+import io.sogloarcadius.feelshare.model.SaveMood;
 
-
-/**
- * A dummy fragment representing a section of the app, but that simply displays dummy text.
- * This would be replaced with your application's content.
- */
 public class WorldChartsFragment extends Fragment {
 
     //Realm realm;
@@ -48,16 +46,19 @@ public class WorldChartsFragment extends Fragment {
     private String[] moodsNames;
 
 
-    private SharedPreferences sharedPref;
-    private String email;
-
-
     private Typeface mTfRegular;
     private Typeface mTfLight;
 
     ArrayList<PieEntry> entriesWorld;
     PieDataSet dataSetWorld;
     PieData piedataWorld;
+
+    // firebase
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMoodsDatabaseReference;
+    private ChildEventListener mChildEventListener;
+    private String authenticatedUserEmail;
+    List<SaveMood> moods = new ArrayList<>();
 
 
 
@@ -89,40 +90,140 @@ public class WorldChartsFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
+        // Firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mMoodsDatabaseReference = mFirebaseDatabase.getReference().child("moods");
+        FirebaseUser authenticatedUser = FirebaseAuth.getInstance().getCurrentUser();
+        authenticatedUserEmail = authenticatedUser.getEmail();
+        if (authenticatedUserEmail == null || authenticatedUserEmail.isEmpty()){
+            for (UserInfo profile : authenticatedUser.getProviderData()){
+                authenticatedUserEmail = profile.getEmail();
+            }
+        }
+        if (authenticatedUserEmail != null) {
+            attachDatabaseReadListener();
+        } else {
+            detachDatabaseReadListener();
+            moods.clear();
+        }
+
         mTfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         mTfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
-
-        //realm = Realm.getDefaultInstance();
 
         mChartWorld = (PieChart) view.findViewById(R.id.chart);
 
         //mchartWorld
-
         configureWorldPieChart();
 
 
-        /*
-        realm.addChangeListener(new RealmChangeListener<Realm>() {
-            @Override
-            public void onChange(Realm element) {
-                setWorldData();
-                mChartWorld.notifyDataSetChanged(); // let the chart know it's piedataWorld changed
-                mChartWorld.invalidate(); // refresh
+    }
 
-            }
-        });
-        */
+    @Override
+    public void onPause() {
+        super.onPause();
+        detachDatabaseReadListener();
+        moods.clear();
     }
 
     @Override
     public void onStop() {
-        //realm.removeAllChangeListeners();
         super.onStop();
+        detachDatabaseReadListener();
+        moods.clear();
+    }
+
+    private void attachDatabaseReadListener() {
+        if (mChildEventListener == null) {
+            mChildEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    SaveMood moodAdded = dataSnapshot.getValue(SaveMood.class);
+                        moods.add(moodAdded);
+                        setWorldData();
+                        mChartWorld.notifyDataSetChanged();
+                        mChartWorld.invalidate();
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+                public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                public void onCancelled(DatabaseError databaseError) {}
+            };
+
+            mMoodsDatabaseReference.addChildEventListener(mChildEventListener);
+        }
+    }
+
+    private void detachDatabaseReadListener() {
+        if (mChildEventListener != null) {
+            mMoodsDatabaseReference.removeEventListener(mChildEventListener);
+            mChildEventListener = null;
+        }
+    }
+
+    private void configureWorldPieChart() {
+
+        SpannableString world_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart2_title) + " \n" + getActivity().getResources().getString(R.string.chart2_desc));
+
+
+        mChartWorld.setUsePercentValues(true);
+        mChartWorld.getDescription().setEnabled(false);
+        mChartWorld.setExtraOffsets(5, 10, 5, 5);
+
+        mChartWorld.setDragDecelerationFrictionCoef(0.95f);
+
+        mChartWorld.setCenterTextTypeface(mTfLight);
+        mChartWorld.setCenterText(world_chart_title);
+
+        mChartWorld.setDrawHoleEnabled(true);
+        mChartWorld.setHoleColor(Color.WHITE);
+
+        mChartWorld.setTransparentCircleColor(Color.WHITE);
+        mChartWorld.setTransparentCircleAlpha(110);
+
+        mChartWorld.setHoleRadius(58f);
+        mChartWorld.setTransparentCircleRadius(61f);
+
+        mChartWorld.setDrawCenterText(true);
+
+        mChartWorld.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        mChartWorld.setRotationEnabled(true);
+        mChartWorld.setHighlightPerTapEnabled(true);
+
+        // mChartWorld.setUnit(" €");
+        // mChartWorld.setDrawUnitsInChart(true);
+
+        // add a selection listener
+        setWorldData();
+
+        mChartWorld.animateY(1400, Easing.EasingOption.EaseInOutQuad);
+        // mChartWorld.spin(2000, 0, 360);
+
+
+        Legend l = mChartWorld.getLegend();
+
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+
+        // entry label styling
+        mChartWorld.setEntryLabelColor(Color.WHITE);
+        mChartWorld.setEntryLabelTypeface(mTfRegular);
+        mChartWorld.setEntryLabelTextSize(12f);
+
+        //mChartWorld.setDrawSliceText(false);
+        //piedataWorld.setDrawValues(false);
 
     }
 
-
-    // ============================================ Custom methods  ==================================
 
 
     private void setWorldData() {
@@ -185,110 +286,28 @@ public class WorldChartsFragment extends Fragment {
 
 
 
-    private void configureWorldPieChart() {
-
-        SpannableString world_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart2_title) + " \n" + getActivity().getResources().getString(R.string.chart2_desc));
-
-
-        mChartWorld.setUsePercentValues(true);
-        mChartWorld.getDescription().setEnabled(false);
-        mChartWorld.setExtraOffsets(5, 10, 5, 5);
-
-        mChartWorld.setDragDecelerationFrictionCoef(0.95f);
-
-        mChartWorld.setCenterTextTypeface(mTfLight);
-        mChartWorld.setCenterText(world_chart_title);
-
-        mChartWorld.setDrawHoleEnabled(true);
-        mChartWorld.setHoleColor(Color.WHITE);
-
-        mChartWorld.setTransparentCircleColor(Color.WHITE);
-        mChartWorld.setTransparentCircleAlpha(110);
-
-        mChartWorld.setHoleRadius(58f);
-        mChartWorld.setTransparentCircleRadius(61f);
-
-        mChartWorld.setDrawCenterText(true);
-
-        mChartWorld.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        mChartWorld.setRotationEnabled(true);
-        mChartWorld.setHighlightPerTapEnabled(true);
-
-        // mChartWorld.setUnit(" €");
-        // mChartWorld.setDrawUnitsInChart(true);
-
-        // add a selection listener
-
-        setWorldData();
-
-        mChartWorld.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        // mChartWorld.spin(2000, 0, 360);
-
-
-        Legend l = mChartWorld.getLegend();
-
-        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
-        l.setOrientation(Legend.LegendOrientation.VERTICAL);
-        l.setDrawInside(false);
-        l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);
-
-        // entry label styling
-        mChartWorld.setEntryLabelColor(Color.WHITE);
-        mChartWorld.setEntryLabelTypeface(mTfRegular);
-        mChartWorld.setEntryLabelTextSize(12f);
-
-        //mChartWorld.setDrawSliceText(false);
-        //piedataWorld.setDrawValues(false);
-
-
-    }
-
-
-
-
 
     private HashMap<Integer, Integer> getWorldCounter() {
-        sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        email = sharedPref.getString("email", null);
-        HashMap<Integer, Integer> counter2 = new HashMap<Integer, Integer>();//world
 
+        HashMap<Integer, Integer> counterWorld = new HashMap<Integer, Integer>();//world
         //init values to 0
         for (int i = 0; i < moodsUID.length; i++) {
 
-            counter2.put(moodsUID[i], 0);
+            counterWorld.put(moodsUID[i], 0);
         }
 
-        /*
-        if (email != null) {
-
-            // Build the query looking at all users:
-            RealmQuery<SaveMood> queryall = realm.where(SaveMood.class);
-
-            //  WORLD
-            // Execute the query:
-            RealmResults<SaveMood> result2 = queryall.findAll().sort("pk");
-            for (SaveMood saveMood : result2) {
-
-                int inc_value = counter2.get(saveMood.getMoodUID()) + 1;
-
-                counter2.put(saveMood.getMoodUID(), inc_value);
-
+        if (authenticatedUserEmail != null) {
+            for (SaveMood saveMood : moods) {
+                int inc_value = counterWorld.get(saveMood.getMoodUID()) + 1;
+                counterWorld.put(saveMood.getMoodUID(), inc_value);
             }
-            Log.v("moodcounterWorld", counter2.toString());
+            Log.v("moodcounterUser", counterWorld.toString());
 
         }
-        */
 
-        return counter2;
+        return counterWorld;
 
     }
-
-
-
 
 
 }

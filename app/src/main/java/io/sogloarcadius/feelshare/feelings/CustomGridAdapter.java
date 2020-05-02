@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.sogloarcadius.feelshare.R;
-import io.sogloarcadius.feelshare.model.Moods;
+import io.sogloarcadius.feelshare.model.Mood;
 
 /**
  * Created by sogloarcadius on 08/03/17.
@@ -22,11 +22,11 @@ import io.sogloarcadius.feelshare.model.Moods;
 public class CustomGridAdapter extends BaseAdapter implements Filterable {
     private Context mContext;
     private ValueFilter valueFilter;
-    private ArrayList<Moods> _moods = new ArrayList<Moods>();
-    private ArrayList<Moods> mStringFilterList;
+    private ArrayList<Mood> _moods = new ArrayList<Mood>();
+    private ArrayList<Mood> mStringFilterList;
 
 
-    public CustomGridAdapter(Context c, ArrayList<Moods> _moods) {
+    public CustomGridAdapter(Context c, ArrayList<Mood> _moods) {
 
         super();
         this.mContext = c;
@@ -89,11 +89,11 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable {
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
             if (constraint != null && constraint.length() > 0) {
-                ArrayList<Moods> filterList = new ArrayList<Moods>();
+                ArrayList<Mood> filterList = new ArrayList<Mood>();
                 for (int i = 0; i < mStringFilterList.size(); i++) {
                     if ((mStringFilterList.get(i).getDesc().toUpperCase())
                             .contains(constraint.toString().toUpperCase())) {
-                        Moods moods = new Moods();
+                        Mood moods = new Mood();
                         moods.setDesc(mStringFilterList.get(i).getDesc());
                         moods.setName(mStringFilterList.get(i).getName());
                         moods.setImg(mStringFilterList.get(i).getImg());
@@ -115,7 +115,7 @@ public class CustomGridAdapter extends BaseAdapter implements Filterable {
         @Override
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
-            _moods = (ArrayList<Moods>) results.values;
+            _moods = (ArrayList<Mood>) results.values;
             notifyDataSetChanged();
         }
     }

@@ -1,10 +1,6 @@
 package io.sogloarcadius.feelshare.model;
 
-/**
- * Created by sogloarcadius on 13/03/17.
- */
-
-public class Moods {
+public class Mood {
 
     private String desc;
     private Integer img;

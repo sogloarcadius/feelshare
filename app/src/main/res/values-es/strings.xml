@@ -34,7 +34,7 @@
     <string name="no">No</string>
     <string name="help_desc">Como Feelshare funciona ?</string>
     <string name="hello">Hola !</string>
-    <string name="general_settings">Preferencias</string>
+    <string name="general_settings">General</string>
     <string name="dialog_log">Enviar</string>
     <string name="dialog_share">Enviar y tweetear !</string>
     <string name="app_name">Feelshare</string>
@@ -110,5 +110,9 @@
         <br/>
         ]]>
     </string>
+    <string name="account_delete_button">Suprimir</string>
+    <string name="account_confirm_delete">Confirmar ?</string>
+    <string name="account_confirm_logout">Confirmar ?</string>
+    <string name="newsletter">Recibir noticias por correo</string>
 
 </resources>

@@ -4,11 +4,10 @@
         android:title="@string/title_account">
 
     <Preference
-        android:key="delete_account"
-        android:summary="Click to Delete Account"
-        android:icon="@drawable/warning_24dp"
-        android:title="Delete"
-        />
+        android:key="logout_account"
+        android:icon="@drawable/ic_exit_to_app_black_24dp"
+        android:title="@string/account_logout_button"
+    />
 
     </PreferenceCategory>
 </PreferenceScreen>

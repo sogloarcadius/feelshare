@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,16 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null){
-                    userID = user.getUid();
-                    userName = user.getDisplayName();
-                    userEmail = user.getEmail();
-
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("userID", userID);
-                    editor.putString("userName", userName);
-                    editor.putString("userEmail", userEmail);
-                    editor.apply(); //handle it in background
-
                     //user signed in
                 } else {
                     //user signed out
@@ -346,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN){
             if (resultCode == RESULT_OK){
-                Toast.makeText(this, "You're now signed in. Welcome to FriendlyChat !", Toast.LENGTH_SHORT ).show();
+                Toast.makeText(this, getString(R.string.account_success_login_message, FirebaseAuth.getInstance().getCurrentUser().getDisplayName()), Toast.LENGTH_SHORT ).show();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Signed in cancelled !", Toast.LENGTH_SHORT ).show();
                 finish();

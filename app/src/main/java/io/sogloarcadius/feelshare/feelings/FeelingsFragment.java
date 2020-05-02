@@ -1,15 +1,8 @@
 package io.sogloarcadius.feelshare.feelings;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
@@ -20,31 +13,30 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SearchView;
 import android.widget.Toast;
-
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.List;
-
 import io.sogloarcadius.feelshare.R;
 import io.sogloarcadius.feelshare.main.MyApplication;
-import io.sogloarcadius.feelshare.model.Moods;
+import io.sogloarcadius.feelshare.model.Mood;
 import io.sogloarcadius.feelshare.model.SaveMood;
 
 
 public class FeelingsFragment extends Fragment {
 
+    private static final String TAG = "FeelingsFragment";
 
     CustomGridAdapter customGridAdapter;
     GridView gridview;
 
-    private SharedPreferences sharedPref;
-    private String email;
-
-    private Boolean updateRealmDBIsSuccessful = false;
     int _position;
 
 
@@ -57,15 +49,17 @@ public class FeelingsFragment extends Fragment {
     private String[] moodsDesc;
 
 
+    // firebase
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mMoodsDatabaseReference;
+
+
     public FeelingsFragment() {
         // Empty constructor required for fragment subclasses
     }
 
     public static Fragment newInstance(String title) {
         Fragment fragment = new FeelingsFragment();
-        /*Bundle args = new Bundle();
-        args.putString("str", title);
-        fragment.setArguments(args);*/
         return fragment;
     }
 
@@ -77,8 +71,6 @@ public class FeelingsFragment extends Fragment {
         context = ((MyApplication) getActivity().getApplicationContext());
 
         View rootView = inflater.inflate(R.layout.fragment_feelings_layout, container, false);
-//        String title = getArguments().getString(TITLE);
-//        getActivity().setTitle(title);
         return rootView;
     }
 
@@ -86,15 +78,19 @@ public class FeelingsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        // Firebase
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mMoodsDatabaseReference = mFirebaseDatabase.getReference().child("moods");
+
         moodsDesc = context.getMoodsDesc();
         moodsImages = context.getMoodsImages();
         moodsNames = context.getMoodsNames();
         moodsUID = context.getMoodsUID();
 
-        final ArrayList<Moods> _moods = new ArrayList<Moods>();
+        final ArrayList<Mood> _moods = new ArrayList<Mood>();
 
         for (int i = 0; i < moodsDesc.length; i++) {
-            Moods moods = new Moods();
+            Mood moods = new Mood();
             moods.setImg(moodsImages[i]);
             moods.setDesc(moodsDesc[i]);
             moods.setName(moodsNames[i]);
@@ -127,66 +123,14 @@ public class FeelingsFragment extends Fragment {
                         .setMessage(moodsDesc[_position]);
 
                 // Add the buttons
-                builder.setPositiveButton(R.string.dialog_log, new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.mood_send, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked send button
-                        //UpdateRealmDB(moodsUID[_position]);
-
+                        updateFirebaseDataBase(moodsUID[_position]);
                     }
                 });
 
-                builder.setNegativeButton(R.string.dialog_share, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User click send and tweet the dialog
-                        Boolean status = true;
-                        //Boolean status = UpdateRealmDB(moodsUID[_position]);
-                        if (status) {
-
-                            List<Intent> targetShareIntents = new ArrayList<Intent>();
-                            Intent shareIntent = new Intent();
-                            shareIntent.setAction(Intent.ACTION_SEND);
-                            shareIntent.setType("text/plain");
-                            PackageManager pm = getActivity().getPackageManager();
-                            List<ResolveInfo> resInfos = pm.queryIntentActivities(shareIntent, 0);
-                            if (!resInfos.isEmpty()) {
-                                System.out.println("Have package");
-                                for (ResolveInfo resInfo : resInfos) {
-                                    String packageName = resInfo.activityInfo.packageName;
-                                    if (packageName.contains("com.twitter.android")) {
-                                        Log.i("Package Name", packageName);
-                                        Intent intent = new Intent();
-                                        intent.setComponent(new ComponentName(packageName, resInfo.activityInfo.name));
-
-                                        String text = "FeelShare " + new Date().getYear();
-                                        Uri imageUri = Uri.parse("android.resource://io.soglomania.feelshare/drawable/" + _moods.get(_position).getImg());
-                                        intent.putExtra("AppName", resInfo.loadLabel(pm).toString());
-                                        intent.putExtra(Intent.EXTRA_SUBJECT, _moods.get(_position).getName());
-                                        intent.setAction(Intent.ACTION_SEND);
-                                        intent.putExtra(Intent.EXTRA_TEXT, "\n\n" + "---\n" + text);
-                                        intent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                                        intent.setType("image/*");
-                                        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                                        intent.setPackage(packageName);
-                                        targetShareIntents.add(intent);
-                                    }
-                                }
-                                if (!targetShareIntents.isEmpty()) {
-                                    Collections.sort(targetShareIntents, new Comparator<Intent>() {
-                                        @Override
-                                        public int compare(Intent o1, Intent o2) {
-                                            return o1.getStringExtra("AppName").compareTo(o2.getStringExtra("AppName"));
-                                        }
-                                    });
-                                    Intent chooserIntent = Intent.createChooser(targetShareIntents.remove(0), "Tweet it ?");
-                                    chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetShareIntents.toArray(new Parcelable[]{}));
-                                    startActivity(chooserIntent);
-                                } else {
-                                    Toast.makeText(getActivity(), getString(R.string.no_app), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }
-                    }
-                });
+                builder.setNegativeButton(R.string.mood_cancel, null);
 
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
@@ -197,7 +141,6 @@ public class FeelingsFragment extends Fragment {
 
         SearchView inputSearch = (SearchView) view.findViewById(R.id.searchView1);
         inputSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
             @Override
             public boolean onQueryTextSubmit(String newText) {
                 return false;
@@ -213,13 +156,47 @@ public class FeelingsFragment extends Fragment {
 
     }
 
+    private void updateFirebaseDataBase(Integer id) {
+
+        // country
+        String country = getContext().getResources().getConfiguration().locale.getCountry();
+
+        // Email
+        FirebaseUser authenticatedUser = FirebaseAuth.getInstance().getCurrentUser();
+        String userEmail = authenticatedUser.getEmail();
+        if (userEmail == null || userEmail.isEmpty()){
+            for (UserInfo profile : authenticatedUser.getProviderData()){
+                userEmail = profile.getEmail();
+            }
+        }
+
+        long currentpk = (long) new Date().getTime();
+        Log.d(TAG, String.valueOf(currentpk));
+
+            final SaveMood saveMood = new SaveMood();
+            saveMood.setUserID(userEmail);
+            saveMood.setPk(currentpk);
+            saveMood.setMoodUID(id);
+            saveMood.setCountry(country);
+            mMoodsDatabaseReference.child(String.valueOf(currentpk)).setValue(saveMood)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    // Write was successful!
+                    Toast.makeText(getContext(), getString(R.string.dialog_log_message), Toast.LENGTH_SHORT).show();
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), getString(R.string.dialog_fail_log_message), Toast.LENGTH_SHORT).show();
+                }
+            });
+    }
+
+
     @Override
     public void onStop() {
-        /*
-        if (realmAsyncTask != null && !realmAsyncTask.isCancelled()) {
-            realmAsyncTask.cancel();
-        }
-        */
         super.onStop();
     }
 
