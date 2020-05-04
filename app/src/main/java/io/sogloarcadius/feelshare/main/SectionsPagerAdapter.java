@@ -15,9 +15,6 @@ import java.util.List;
 import java.util.Locale;
 
 import io.sogloarcadius.feelshare.R;
-/**
- * Created by sogloarcadius on 12/03/17.
- */
 
 
 /**

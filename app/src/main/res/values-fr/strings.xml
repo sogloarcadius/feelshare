@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Feelshare</string>
-    <string name="about_desc">Information sur Feelshare</string>
     <string name="about_title">Feelshare</string>
     <string name="account_feelshare_desc">Feelshare est une application qui te permet de voir l’humeur du monde  et les tiens en tant réel !</string>
     <string name="action_notification">Notification</string>
@@ -13,7 +12,7 @@
     <string name="chart2_title">Le monde</string>
     <string name="chart3_desc">Voir les émotions du monde sur une carte</string>
     <string name="conditions_desc">Veuillez lire les CGU.</string>
-    <string name="conditions_title">CGU</string>
+    <string name="conditions_file">eul.fr</string>
     <string name="dialog_fail_log_message">Nous n\'avons pas pu envoyer tes émotions</string>
     <string name="dialog_log">Envoyer</string>
     <string name="dialog_log_message">Emotion envoyé avec succès</string>
@@ -24,8 +23,7 @@
     <string name="frustated_desc">État de quelqu\'un qui est frustré, empêché d\'atteindre un but ou de réaliser un désir.</string>
     <string name="general_settings">General</string>
     <string name="hello">Salut !</string>
-    <string name="help_desc">Comment fonctionne Feelshare ?</string>
-    <string name="help_title">aide</string>
+    <string name="about_file">help.fr</string>
     <string name="no">Non</string>
     <string name="no_app">"Aucune application de partage "</string>
     <string name="account_not_logged">Connecte toi avant !</string>
@@ -96,8 +94,8 @@
     <string name="title_user_charts">Moi</string>
     <string name="title_support">Aide</string>
     <string name="moods">Emotions</string>
-    <string name="help">Feelshare</string>
-    <string name="licence">Licence</string>
+    <string name="about">A Propos</string>
+    <string name="conditions">CGU</string>
     <string name="share">Partager</string>
     <string name="account_logout_button">Se déconnecter</string>
     <string name="ok">OK</string>
@@ -114,4 +112,11 @@
     <string name="account_confirm_logout">Confirmation ?</string>
     <string name="account_delete_button">Supprimer</string>
     <string name="newsletter">Recevoir la newsletter</string>
+    <string name="about_desc">Information sur Feelshare. Comment fonctionne Feelshare ?</string>
+    <string name="account_network_error">Aucune connectivité réseau !</string>
+    <string name="account_signin_cancelled">Authentification interrompu, Veuillez réessayer plus tard !</string>
+    <string name="account_sync_newspref_error">Erreur de Synchronisation des préférences !</string>
+    <string name="account_sync_newspref_success">Synchronisation des préférences réussit !</string>
+    <string name="mood_cancel">Annuler !</string>
+    <string name="mood_send">Envoyer !</string>
 </resources>

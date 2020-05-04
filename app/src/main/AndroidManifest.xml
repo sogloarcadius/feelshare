@@ -3,9 +3,10 @@
     package="io.sogloarcadius.feelshare">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="io.sogloarcadius.feelshare.main.MyApplication"
+        android:name="io.sogloarcadius.feelshare.main.FeelShareApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,21 +14,37 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="io.sogloarcadius.feelshare.preferences.PreferenceActivity">
-        </activity>
-
-        <activity
-            android:name="io.sogloarcadius.feelshare.main.MainActivity"
+            android:name="io.sogloarcadius.feelshare.main.FeelShareActivity"
+            android:launchMode="singleTop"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="io.sogloarcadius.feelshare.support.WebViewActivity" />
+
+
+        <activity
+            android:name="io.sogloarcadius.feelshare.preference.PreferenceActivity"
+            android:label="@string/action_settings"
+            android:parentActivityName="io.sogloarcadius.feelshare.main.FeelShareActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.sogloarcadius.feelshare.main.FeelShareActivity"/>
+        </activity>
+
+
+        <activity
+            android:name="io.sogloarcadius.feelshare.support.WebViewActivity"
+            android:parentActivityName="io.sogloarcadius.feelshare.main.FeelShareActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.sogloarcadius.feelshare.main.FeelShareActivity"/>
+        </activity>>
     </application>
 
 </manifest>

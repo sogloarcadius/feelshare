@@ -1,4 +1,4 @@
-package io.sogloarcadius.feelshare.charts;
+package io.sogloarcadius.feelshare.chart;
 
 
 import android.graphics.Color;
@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -32,15 +31,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import io.sogloarcadius.feelshare.R;
-import io.sogloarcadius.feelshare.main.MyApplication;
+import io.sogloarcadius.feelshare.main.FeelShareApplication;
 import io.sogloarcadius.feelshare.model.SaveMood;
 
-public class WorldChartsFragment extends Fragment {
+public class WorldChartFragment extends Fragment {
 
-    //Realm realm;
+    private static final String TAG = "WorldChartFragment" ;
     PieChart mChartWorld;
 
-    public MyApplication context;
+    private FeelShareApplication context;
 
     private Integer[] moodsUID;
     private String[] moodsNames;
@@ -62,12 +61,12 @@ public class WorldChartsFragment extends Fragment {
 
 
 
-    public WorldChartsFragment() {
+    public WorldChartFragment() {
         // Empty constructor required for fragment subclasses
     }
 
     public static Fragment newInstance(String title) {
-        Fragment fragment = new WorldChartsFragment();
+        Fragment fragment = new WorldChartFragment();
         return fragment;
     }
 
@@ -76,7 +75,7 @@ public class WorldChartsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        context = ((MyApplication) getActivity().getApplicationContext());
+        context = ((FeelShareApplication) getActivity().getApplicationContext());
 
         moodsUID = context.getMoodsUID();
         moodsNames = context.getMoodsNames();
@@ -168,6 +167,11 @@ public class WorldChartsFragment extends Fragment {
 
         SpannableString world_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart2_title) + " \n" + getActivity().getResources().getString(R.string.chart2_desc));
 
+        // all possible touch-interactions with the chart
+        mChartWorld.setTouchEnabled(true);
+
+        // rotation of the chart by touch
+        mChartWorld.setRotationEnabled(false);
 
         mChartWorld.setUsePercentValues(true);
         mChartWorld.getDescription().setEnabled(false);
@@ -190,19 +194,10 @@ public class WorldChartsFragment extends Fragment {
         mChartWorld.setDrawCenterText(true);
 
         mChartWorld.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        mChartWorld.setRotationEnabled(true);
         mChartWorld.setHighlightPerTapEnabled(true);
 
-        // mChartWorld.setUnit(" €");
-        // mChartWorld.setDrawUnitsInChart(true);
-
-        // add a selection listener
+        // add data
         setWorldData();
-
-        mChartWorld.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        // mChartWorld.spin(2000, 0, 360);
-
 
         Legend l = mChartWorld.getLegend();
 
@@ -219,8 +214,9 @@ public class WorldChartsFragment extends Fragment {
         mChartWorld.setEntryLabelTypeface(mTfRegular);
         mChartWorld.setEntryLabelTextSize(12f);
 
-        //mChartWorld.setDrawSliceText(false);
-        //piedataWorld.setDrawValues(false);
+        // labels
+        mChartWorld.setDrawEntryLabels(false);
+        piedataWorld.setDrawValues(false);
 
     }
 
@@ -273,7 +269,10 @@ public class WorldChartsFragment extends Fragment {
 
         piedataWorld = new PieData(dataSetWorld);
         piedataWorld.setValueFormatter(new PercentFormatter());
-        piedataWorld.setValueTextSize(11f);
+
+        // remove percentage in piechart
+        piedataWorld.setValueTextSize(0);
+
         piedataWorld.setValueTextColor(Color.WHITE);
         piedataWorld.setValueTypeface(mTfLight);
         mChartWorld.setData(piedataWorld);
@@ -301,7 +300,7 @@ public class WorldChartsFragment extends Fragment {
                 int inc_value = counterWorld.get(saveMood.getMoodUID()) + 1;
                 counterWorld.put(saveMood.getMoodUID(), inc_value);
             }
-            Log.v("moodcounterUser", counterWorld.toString());
+            Log.v(TAG, counterWorld.toString());
 
         }
 

@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import io.sogloarcadius.feelshare.R;
-import io.sogloarcadius.feelshare.preferences.PreferenceActivity;
+import io.sogloarcadius.feelshare.preference.PreferenceActivity;
 
 
 public class AccountFragment extends Fragment {

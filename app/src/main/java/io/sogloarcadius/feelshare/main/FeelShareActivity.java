@@ -1,10 +1,12 @@
 package io.sogloarcadius.feelshare.main;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import com.firebase.ui.auth.AuthMethodPickerLayout;
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -26,59 +28,44 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+import io.sogloarcadius.feelshare.BuildConfig;
 import io.sogloarcadius.feelshare.R;
 import io.sogloarcadius.feelshare.account.AccountFragment;
-import io.sogloarcadius.feelshare.charts.UserChartsFragment;
-import io.sogloarcadius.feelshare.charts.WorldChartsFragment;
-import io.sogloarcadius.feelshare.feelings.FeelingsFragment;
+import io.sogloarcadius.feelshare.chart.UserChartFragment;
+import io.sogloarcadius.feelshare.chart.WorldChartFragment;
+import io.sogloarcadius.feelshare.mood.MoodFragment;
 import io.sogloarcadius.feelshare.support.WebViewActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class FeelShareActivity extends AppCompatActivity {
 
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private static final int RC_SIGN_IN = 1;
-
-    public String userID;
-    public String userName;
-    public String userEmail;
 
     private Integer[] moodsUID;
     private String[] moodsNames;
     private String[] moodsDesc;
     private Integer[] moodsImages;
 
-    private SharedPreferences sharedPref;
-
-    // le gestionnaire de fragments
+    private final String TAG = "FeelShareMainActivity";
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    // le conteneur de fragments
     private ViewPager mViewPager;
 
-    // Création de la liste de Fragments que fera défiler le PagerAdapter
-    List fragments = new Vector();
-
-
-    public MyApplication context;
+    private List fragments = new Vector();
+    private FeelShareApplication context;
 
     // constructeur
-    public MainActivity() {
-        Log.d(MyApplication.TAG, "constructor");
+    public FeelShareActivity() {
+        Log.d(TAG, "constructor");
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-        Log.d(MyApplication.TAG, "onCreate");
-
+        Log.d(TAG, "onCreate");
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener =  new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null){
                     //user signed in
@@ -93,11 +80,22 @@ public class MainActivity extends AppCompatActivity {
                     );
 
                     // Create and launch sign-in intent
+                    AuthMethodPickerLayout firebaseAuthMethodPickerLayout = new AuthMethodPickerLayout
+                            .Builder(R.layout.firebase_auth_picker)
+                            .setEmailButtonId(R.id.email_provider)
+                            .setGoogleButtonId(R.id.google_provider)
+                            .setFacebookButtonId(R.id.facebook_provider)
+                            .setTwitterButtonId(R.id.twitter_provider)
+                            .build();
+
+
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
-                                    .setIsSmartLockEnabled(false)
+                                    .setIsSmartLockEnabled(!BuildConfig.DEBUG, true)
                                     .setAvailableProviders(providers)
+                                    .setTheme(R.style.AppTheme)
+                                    .setAuthMethodPickerLayout(firebaseAuthMethodPickerLayout)
                                     .build(),
                             RC_SIGN_IN);
                 }
@@ -210,53 +208,38 @@ public class MainActivity extends AppCompatActivity {
                 getResources().getString(R.string.tired_desc)
         };
 
-        context = ((MyApplication) getApplicationContext());
+        context = ((FeelShareApplication) getApplicationContext());
         context.setMoodsDesc(moodsDesc);
         context.setMoodsImages(moodsImages);
         context.setMoodsNames(moodsNames);
         context.setMoodsUID(moodsUID);
 
-        // parent
         super.onCreate(savedInstanceState);
 
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
-
-        // vue
         setContentView(R.layout.activity_main);
 
-        // barre d'outils
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Ajout des Fragments dans la liste
         fragments.add(AccountFragment.newInstance("Account"));
-        fragments.add(FeelingsFragment.newInstance("Feelings"));
-        fragments.add(UserChartsFragment.newInstance("User"));
-        fragments.add(WorldChartsFragment.newInstance("World"));
+        fragments.add(MoodFragment.newInstance("Feelings"));
+        fragments.add(UserChartFragment.newInstance("User"));
+        fragments.add(WorldChartFragment.newInstance("World"));
 
-        // le gestionnaire de fragments
         mSectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(), getSupportFragmentManager(), fragments);
 
-
-        // le conteneur de fragments est associé au gestionnaire de fragments
-        // ç-à-d que le fragment n° i du conteneur de fragments est le fragment n° i délivré par le gestionnaire de fragments
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // la barre d'onglets est également associée au conteneur de fragments
-        // ç-à-d que l'onglet n° i affiche le fragment n° i du conteneur
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-
-
 
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d("menu", "création menu en cours");
+        Log.d(TAG, "Création menu en cours");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -265,26 +248,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         if (id == R.id.action_licence) {
             Intent intent = new Intent(this, WebViewActivity.class);
-            intent.putExtra("title", getString(R.string.conditions_title).toLowerCase());
+            intent.putExtra("file", getString(R.string.conditions_file).toLowerCase());
+            intent.putExtra("title", getString(R.string.conditions).toLowerCase());
             startActivity(intent);
         }
 
-        if (id == R.id.action_help) {
+        if (id == R.id.action_about) {
             Intent intent = new Intent(this, WebViewActivity.class);
-            intent.putExtra("title", getString(R.string.help_title).toLowerCase());
+            intent.putExtra("file", getString(R.string.about_file).toLowerCase());
+            intent.putExtra("title", getString(R.string.about).toLowerCase());
+
             startActivity(intent);
         }
         if (id == R.id.action_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, "http://feelshare.soglomania.io");
+            intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
             startActivity(Intent.createChooser(intent, getString(R.string.share_app_select)));
         }
         // parent
@@ -304,7 +287,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //Stop the activity
-                            MainActivity.this.finish();
+                            FeelShareActivity.this.finish();
                         }
                     })
                     .setNegativeButton(R.string.no, null)
@@ -331,17 +314,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data)  {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN){
-            if (resultCode == RESULT_OK){
-                Toast.makeText(this, getString(R.string.account_success_login_message, FirebaseAuth.getInstance().getCurrentUser().getDisplayName()), Toast.LENGTH_SHORT ).show();
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Signed in cancelled !", Toast.LENGTH_SHORT ).show();
-                finish();
-                System.exit(0);
+            if (requestCode == RC_SIGN_IN) {
+                IdpResponse response = IdpResponse.fromResultIntent(data);
+                // Successfully signed in
+                if (resultCode == RESULT_OK) {
+                    Toast.makeText(this, getString(R.string.account_success_login_message, FirebaseAuth.getInstance().getCurrentUser().getDisplayName()), Toast.LENGTH_SHORT).show();
+                }
+                // signed failed
+                else {
+                    if (response != null && response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+                        Toast.makeText(this, getString(R.string.account_network_error), Toast.LENGTH_SHORT).show();
+                    }
+                    Toast.makeText(this, getString(R.string.account_signin_cancelled), Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
-        }
     }
+
+
+
 
 }

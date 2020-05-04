@@ -1,25 +1,23 @@
-package io.sogloarcadius.feelshare.support;
+package io.sogloarcadius.feelshare.preference;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
-public class WebViewActivity extends AppCompatActivity {
+
+
+public class PreferenceActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle(getIntent().getStringExtra("title").toUpperCase());
-
-        ArticleFragment fragment = ArticleFragment.create(getIntent().getStringExtra("file"));
-
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, fragment)
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(android.R.id.content, new PreferenceFragment())
                 .commit();
 
         ActionBar actionBar = getSupportActionBar();
@@ -37,5 +35,4 @@ public class WebViewActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

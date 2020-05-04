@@ -1,4 +1,4 @@
-package io.sogloarcadius.feelshare.feelings;
+package io.sogloarcadius.feelshare.mood;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import io.sogloarcadius.feelshare.R;
 import io.sogloarcadius.feelshare.model.Mood;
 
-/**
- * Created by sogloarcadius on 08/03/17.
- */
 
 public class CustomGridAdapter extends BaseAdapter implements Filterable {
     private Context mContext;

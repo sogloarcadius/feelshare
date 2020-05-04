@@ -1,4 +1,4 @@
-package io.sogloarcadius.feelshare.charts;
+package io.sogloarcadius.feelshare.chart;
 
 
 import android.graphics.Color;
@@ -11,15 +11,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -29,20 +33,21 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import io.sogloarcadius.feelshare.R;
-import io.sogloarcadius.feelshare.main.MyApplication;
+import io.sogloarcadius.feelshare.main.FeelShareApplication;
 import io.sogloarcadius.feelshare.model.SaveMood;
 
-public class UserChartsFragment extends Fragment {
+public class UserChartFragment extends Fragment {
 
-    //Realm realm;
+    private static final String TAG = "UserChartFragment";
     PieChart mChartUser;
 
-    public MyApplication context;
+    private FeelShareApplication context;
 
     private Integer[] moodsUID;
     private String[] moodsNames;
@@ -50,7 +55,6 @@ public class UserChartsFragment extends Fragment {
 
     private Typeface mTfRegular;
     private Typeface mTfLight;
-
 
     ArrayList<PieEntry> entriesUser;
     PieDataSet dataSetUser;
@@ -64,13 +68,12 @@ public class UserChartsFragment extends Fragment {
     List<SaveMood> moods = new ArrayList<>();
 
 
-
-    public UserChartsFragment() {
+    public UserChartFragment() {
         // Empty constructor required for fragment subclasses
     }
 
     public static Fragment newInstance(String title) {
-        Fragment fragment = new UserChartsFragment();
+        Fragment fragment = new UserChartFragment();
         return fragment;
     }
 
@@ -79,7 +82,7 @@ public class UserChartsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        context = ((MyApplication) getActivity().getApplicationContext());
+        context = ((FeelShareApplication) getActivity().getApplicationContext());
 
         moodsUID = context.getMoodsUID();
         moodsNames = context.getMoodsNames();
@@ -118,6 +121,7 @@ public class UserChartsFragment extends Fragment {
         //mchartUser
         configureUserPieChart();
 
+
     }
 
     @Override
@@ -128,11 +132,19 @@ public class UserChartsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        attachDatabaseReadListener();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         detachDatabaseReadListener();
         moods.clear();
     }
+
+
 
 
 
@@ -176,6 +188,12 @@ public class UserChartsFragment extends Fragment {
 
         SpannableString user_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart1_title) + " \n" + getActivity().getResources().getString(R.string.chart1_desc));
 
+        // all possible touch-interactions with the chart
+        mChartUser.setTouchEnabled(true);
+
+        // rotation of the chart by touch
+        mChartUser.setRotationEnabled(false);
+
 
         mChartUser.setUsePercentValues(true);
         mChartUser.getDescription().setEnabled(false);
@@ -198,20 +216,11 @@ public class UserChartsFragment extends Fragment {
         mChartUser.setDrawCenterText(true);
 
         mChartUser.setRotationAngle(0);
-        // enable rotation of the chart by touch
-        mChartUser.setRotationEnabled(true);
+
         mChartUser.setHighlightPerTapEnabled(true);
 
-        // mChartUser.setUnit(" €");
-        // mChartUser.setDrawUnitsInChart(true);
-
-        // add a selection listener
-
+        // add data
         setUserData();
-
-        mChartUser.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        // mChartWorld.spin(2000, 0, 360);
-
 
         Legend l = mChartUser.getLegend();
 
@@ -228,9 +237,9 @@ public class UserChartsFragment extends Fragment {
         mChartUser.setEntryLabelTypeface(mTfRegular);
         mChartUser.setEntryLabelTextSize(12f);
 
-        //mChartUser.setDrawSliceText(false);
-        //piedataUser.setDrawValues(false);
-
+        // labels
+        mChartUser.setDrawEntryLabels(false);
+        piedataUser.setDrawValues(false);
 
     }
 
@@ -281,7 +290,9 @@ public class UserChartsFragment extends Fragment {
 
         piedataUser = new PieData(dataSetUser);
         piedataUser.setValueFormatter(new PercentFormatter());
-        piedataUser.setValueTextSize(11f);
+        // remove percentage in piechart
+        piedataUser.setValueTextSize(0);
+
         piedataUser.setValueTextColor(Color.WHITE);
         piedataUser.setValueTypeface(mTfLight);
         mChartUser.setData(piedataUser);
@@ -308,15 +319,12 @@ public class UserChartsFragment extends Fragment {
                 int inc_value = counter.get(saveMood.getMoodUID()) + 1;
                 counter.put(saveMood.getMoodUID(), inc_value);
             }
-            Log.v("moodcounterUser", counter.toString());
+            Log.v(TAG, counter.toString());
 
         }
 
         return counter;
 
     }
-
-
-
 
 }

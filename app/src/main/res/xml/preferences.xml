@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference
-        android:title="@string/general_settings"
-        android:icon="@drawable/flag_24dp"
-        android:fragment="io.sogloarcadius.feelshare.preferences.GeneralPreferenceFragment"
-    />
-    <Preference
-        android:title="@string/title_account"
-        android:icon="@drawable/ic_account_circle_black_24dp"
-        android:fragment="io.sogloarcadius.feelshare.preferences.AccountPreferenceFragment"
-    />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/action_settings">
+        <PreferenceCategory>
+            <CheckBoxPreference
+                android:key="enable_newsletter"
+                android:icon="@drawable/notification_important_24dp"
+                android:title="@string/newsletter"
+                android:summaryOn="On"
+                android:summaryOff="Off"
+                android:defaultValue="false" />
 
-
+            <Preference
+                android:key="logout_account"
+                android:icon="@drawable/ic_exit_to_app_black_24dp"
+                android:title="@string/account_logout_button" />
+        </PreferenceCategory>
 </PreferenceScreen>

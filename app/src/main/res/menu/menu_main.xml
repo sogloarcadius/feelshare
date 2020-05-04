@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="exemples.soglomania.MainActivity">
     <item
-        android:id="@+id/action_help"
-        android:title="@string/help"
+        android:id="@+id/action_about"
+        android:title="@string/about"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_licence"
-        android:title="@string/licence"
+        android:title="@string/conditions"
         android:icon="@android:drawable/ic_menu_share"
         app:showAsAction="never" />
     <item

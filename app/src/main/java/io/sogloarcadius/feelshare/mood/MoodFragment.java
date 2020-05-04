@@ -1,6 +1,9 @@
-package io.sogloarcadius.feelshare.feelings;
+package io.sogloarcadius.feelshare.mood;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,12 +28,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import io.sogloarcadius.feelshare.R;
-import io.sogloarcadius.feelshare.main.MyApplication;
+import io.sogloarcadius.feelshare.main.FeelShareApplication;
 import io.sogloarcadius.feelshare.model.Mood;
 import io.sogloarcadius.feelshare.model.SaveMood;
 
 
-public class FeelingsFragment extends Fragment {
+public class MoodFragment extends Fragment {
 
     private static final String TAG = "FeelingsFragment";
 
@@ -40,7 +43,7 @@ public class FeelingsFragment extends Fragment {
     int _position;
 
 
-    MyApplication context;
+    private FeelShareApplication context;
 
     private String[] moodsNames;
     private Integer[] moodsImages;
@@ -54,12 +57,12 @@ public class FeelingsFragment extends Fragment {
     private DatabaseReference mMoodsDatabaseReference;
 
 
-    public FeelingsFragment() {
+    public MoodFragment() {
         // Empty constructor required for fragment subclasses
     }
 
     public static Fragment newInstance(String title) {
-        Fragment fragment = new FeelingsFragment();
+        Fragment fragment = new MoodFragment();
         return fragment;
     }
 
@@ -68,7 +71,7 @@ public class FeelingsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        context = ((MyApplication) getActivity().getApplicationContext());
+        context = ((FeelShareApplication) getActivity().getApplicationContext());
 
         View rootView = inflater.inflate(R.layout.fragment_feelings_layout, container, false);
         return rootView;
@@ -170,28 +173,38 @@ public class FeelingsFragment extends Fragment {
             }
         }
 
-        long currentpk = (long) new Date().getTime();
-        Log.d(TAG, String.valueOf(currentpk));
+        // internet connection
+        ConnectivityManager cm = (ConnectivityManager)getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo nInfo = cm.getActiveNetworkInfo();
+        boolean connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
+
+        if (connected) {
+            long currentpk = (long) new Date().getTime();
+            Log.d(TAG, String.valueOf(currentpk));
 
             final SaveMood saveMood = new SaveMood();
             saveMood.setUserID(userEmail);
             saveMood.setPk(currentpk);
             saveMood.setMoodUID(id);
             saveMood.setCountry(country);
+
             mMoodsDatabaseReference.child(String.valueOf(currentpk)).setValue(saveMood)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    // Write was successful!
-                    Toast.makeText(getContext(), getString(R.string.dialog_log_message), Toast.LENGTH_SHORT).show();
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getContext(), getString(R.string.dialog_fail_log_message), Toast.LENGTH_SHORT).show();
-                }
-            });
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            // Write was successful!
+                            Toast.makeText(getContext(), getString(R.string.dialog_log_message), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getContext(), getString(R.string.dialog_fail_log_message), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(getContext(), getString(R.string.account_network_error), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
