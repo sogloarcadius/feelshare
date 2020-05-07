@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--  =====     Users Management   ====  -->
+    <!-- res/values/secrets.xml 
+    <string name="facebook_application_id" translatable="false">secret</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">secret</string>
+    <string name="twitter_consumer_key" translatable="false">secret</string>
+    <string name="twitter_consumer_secret" translatable="false">secret</string>
+    -->
 
-    <string name="facebook_application_id" translatable="false">1892985007654083</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb1892985007654083</string>
-    <string name="twitter_consumer_key" translatable="false">NiJ05xdtmQVwYNfv8oM1R2Md4</string>
-    <string name="twitter_consumer_secret" translatable="false">ALuijUcca1UkP0UNUk3dwxvt3HUDey4p8gI86CcVI0RWIraugD</string>
+    <!--  =====     Users Management   ====  -->
     <string name="username">Username : %s</string>
     <string name="email">Email : %s </string>
     <string name="account_feelshare_desc">Feelshare is an application that let you see the world feelings and yours !</string>

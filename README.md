@@ -2,15 +2,15 @@
 
 Android Application to see the world feelings and yours.
 
-![Login CAPTURE](https://github.com/sogloarcadius/feelshare/blob/master/captures/Screen1.png)
+<img src="captures/screen1.png" width="200px" height="400px">
 
-![Account CAPTURE](https://github.com/sogloarcadius/feelshare/blob/master/captures/Screen2.png)
+<img src="captures/screen2.png" width="200px" height="400px">
 
-![Mood CAPTURE](https://github.com/sogloarcadius/feelshare/blob/master/captures/Screen3.png)
+<img src="captures/screen3.png" width="200px" height="400px">
 
-![User Chart CAPTURE](https://github.com/sogloarcadius/feelshare/blob/master/captures/Screen4.png)
+<img src="captures/screen4.png" width="200px" height="400px">
 
-![World Chart CAPTURE](https://github.com/sogloarcadius/feelshare/blob/master/captures/Screen5.png)
+<img src="captures/screen5.png" width="200px" height="400px">
 
 
 # Author
