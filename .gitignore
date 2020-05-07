@@ -89,4 +89,8 @@ lint/tmp/
 
 # vscode
 .vscode
-.settings
+
+# Eclipse
+.classpath
+.project
+.settings/
