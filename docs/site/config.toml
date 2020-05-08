@@ -1,0 +1,31 @@
+
+baseURL = "https://sogloarcadius.github.io/feelshare"
+
+languageCode = "en-us"
+
+title = "FEELSHARE"
+
+theme = "kube"
+
+description = "Feelshare is an application to see the world feelings and yours !"
+
+disableKinds = ["RSS"]
+
+publishdir = "public"
+
+[Params]
+  author = "sogloarcadius"
+  github = "" 
+  twitter = "" 
+  email = "rtsoglo@gmail.com"
+
+
+[[menu.main]]
+    name = "Faq"
+    weight = 1
+    url = "/faq/"
+
+[[menu.main]]
+    name = "Privacy"
+    weight = 2
+    url = "/privacy/"

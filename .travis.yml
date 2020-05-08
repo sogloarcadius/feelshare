@@ -1,0 +1,14 @@
+---
+dist: trusty
+language: go
+script:
+    - cd docs/site
+    - ./scripts/hugo
+deploy:
+  provider: pages
+  local-dir: docs/site/public
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN 
+  keep-history: true
+  on:
+    branch: master
