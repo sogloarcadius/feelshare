@@ -9,6 +9,7 @@
     -->
 
     <!--  =====     Users Management   ====  -->
+    <string name="privacy_url" translatable="false">https://sogloarcadius.github.io/feelshare/privacy/</string>
     <string name="username">Username : %s</string>
     <string name="email">Email : %s </string>
     <string name="account_feelshare_desc">Feelshare is an application that let you see the world feelings and yours !</string>

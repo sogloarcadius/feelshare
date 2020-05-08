@@ -96,6 +96,7 @@ public class FeelShareActivity extends AppCompatActivity {
                                     .setAvailableProviders(providers)
                                     .setTheme(R.style.AppTheme)
                                     .setAuthMethodPickerLayout(firebaseAuthMethodPickerLayout)
+                                    .setTosAndPrivacyPolicyUrls(getString(R.string.privacy_url), getString(R.string.privacy_url))
                                     .build(),
                             RC_SIGN_IN);
                 }
