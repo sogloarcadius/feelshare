@@ -1,0 +1,38 @@
+.button.android {
+    background: green;
+    border-width: 2px;
+    border-color: green;
+    color:white; 
+}
+.button.android:hover {
+    background: none;
+    color:green;
+    border-color:blue; 
+}
+
+#kube-privacy {
+    max-width: 740px;
+    margin: auto;
+    font-size: 17px;
+    line-height: 28px;
+    margin-bottom: 104px;
+    border-top: 1px solid rgba(0, 0, 0, 0.07); 
+}
+
+#kube-privacy h2 {
+    font-size: 24px;
+    font-weight: 900;
+    text-align: left;
+    line-height: 32px;
+    margin-top: 80px;
+    margin-bottom: 40px; 
+}
+
+
+body {
+    background-color: white;
+}
+
+a {
+    color: green;
+}
