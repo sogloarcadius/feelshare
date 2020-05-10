@@ -1,6 +1,8 @@
-# [FeelShare](https://sogloarcadius.github.io/feelshare)
+# FeelShare
 
 Android Application to see the world feelings and yours.
+
+[Download](https://sogloarcadius.github.io/feelshare)
 
 # Author
 

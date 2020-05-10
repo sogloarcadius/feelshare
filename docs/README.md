@@ -16,6 +16,6 @@ hugo -D
 
 ```
 
-# TRAVIS CI 
+# Documentation
 
 [FeelShare](https://sogloarcadius.github.io/feelshare)
