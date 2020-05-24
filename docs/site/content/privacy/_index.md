@@ -44,4 +44,4 @@ If we make any material changes to this Privacy Policy, we will notify you eithe
 
 ## Contact Us
 
-If you have any questions about this Privacy Policy, please contact us at rtsoglo@gmail.com.
+If you have any questions about this Privacy Policy, please contact us at sogloarcadius@gmail.com.
