@@ -67,22 +67,21 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 title = " ";
-                myDrawable = context.getResources().getDrawable(R.drawable.ic_account_circle_black_24dp);
+                myDrawable = context.getResources().getDrawable(R.drawable.baseline_account_circle_black_24);
                 break;
             case 1:
                 title = " ";
-                myDrawable = context.getResources().getDrawable(R.drawable.ic_mood_black_24dp);
+                myDrawable = context.getResources().getDrawable(R.drawable.baseline_mood_black_24);
                 break;
 
             case 2:
                 title = " ";
-                myDrawable = context.getResources().getDrawable(R.drawable.people
-                );
+                myDrawable = context.getResources().getDrawable(R.drawable.baseline_emoji_people_black_24);
                 break;
 
             case 3:
                 title = " ";
-                myDrawable = context.getResources().getDrawable(R.drawable.globe);
+                myDrawable = context.getResources().getDrawable(R.drawable.baseline_group_black_24);
                 break;
 
             default:

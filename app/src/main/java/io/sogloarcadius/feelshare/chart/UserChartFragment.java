@@ -6,13 +6,19 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import android.text.SpannableString;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -21,9 +27,10 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -33,7 +40,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,30 +48,31 @@ import io.sogloarcadius.feelshare.R;
 import io.sogloarcadius.feelshare.main.FeelShareApplication;
 import io.sogloarcadius.feelshare.model.SaveMood;
 
-public class UserChartFragment extends Fragment {
+public class UserChartFragment extends Fragment implements OnChartValueSelectedListener {
 
     private static final String TAG = "UserChartFragment";
-    PieChart mChartUser;
+
+    private PieChart mChartUser;
 
     private FeelShareApplication context;
 
     private Integer[] moodsUID;
     private String[] moodsNames;
-
+    private Integer[] moodsImages;
 
     private Typeface mTfRegular;
     private Typeface mTfLight;
 
-    ArrayList<PieEntry> entriesUser;
-    PieDataSet dataSetUser;
-    PieData piedataUser;
+    private ArrayList<PieEntry> entriesUser;
+    private PieDataSet dataSetUser;
+    private PieData piedataUser;
 
     // firebase
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mMoodsDatabaseReference;
     private ChildEventListener mChildEventListener;
     private String authenticatedUserEmail;
-    List<SaveMood> moods = new ArrayList<>();
+    private List<SaveMood> moods = new ArrayList<>();
 
 
     public UserChartFragment() {
@@ -86,6 +93,8 @@ public class UserChartFragment extends Fragment {
 
         moodsUID = context.getMoodsUID();
         moodsNames = context.getMoodsNames();
+        moodsImages = context.getMoodsImages();
+
         View rootView = inflater.inflate(R.layout.fragment_charts_user_layout, container, false);
         return rootView;
     }
@@ -113,12 +122,11 @@ public class UserChartFragment extends Fragment {
             moods.clear();
         }
 
+        // PieChart User
         mTfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         mTfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
-
         mChartUser = (PieChart) view.findViewById(R.id.chartuser);
-
-        //mchartUser
+        mChartUser.setOnChartValueSelectedListener(this);
         configureUserPieChart();
 
 
@@ -186,7 +194,7 @@ public class UserChartFragment extends Fragment {
 
     private void configureUserPieChart() {
 
-        SpannableString user_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart1_title) + " \n" + getActivity().getResources().getString(R.string.chart1_desc));
+        SpannableString user_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart1_desc));
 
         // all possible touch-interactions with the chart
         mChartUser.setTouchEnabled(true);
@@ -222,8 +230,8 @@ public class UserChartFragment extends Fragment {
         // add data
         setUserData();
 
+        // legend
         Legend l = mChartUser.getLegend();
-
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
         l.setOrientation(Legend.LegendOrientation.VERTICAL);
@@ -231,6 +239,8 @@ public class UserChartFragment extends Fragment {
         l.setXEntrySpace(7f);
         l.setYEntrySpace(0f);
         l.setYOffset(0f);
+        mChartUser.getLegend().setEnabled(false);
+
 
         // entry label styling
         mChartUser.setEntryLabelColor(Color.WHITE);
@@ -327,4 +337,41 @@ public class UserChartFragment extends Fragment {
 
     }
 
+    @Override
+    public void onValueSelected(Entry e, Highlight h) {
+
+        Log.v(TAG, "I Clicked on " + moodsNames[(int)h.getX()] + " : " + h.getY());
+
+        mChartUser.setCenterText(moodsNames[(int)h.getX()]);
+
+
+        LinearLayout toastView = new LinearLayout(getContext());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.CENTER;
+        toastView.setLayoutParams(layoutParams);
+        toastView.setGravity(Gravity.CENTER);
+        toastView.setOrientation(LinearLayout.VERTICAL);
+
+
+        ImageView toastImage = new ImageView(getContext());
+        toastImage.setImageResource(moodsImages[(int)h.getX()]);
+
+        TextView toastText = new TextView(getContext());
+        toastText.setText(moodsNames[(int)h.getX()]);
+
+        toastView.addView(toastImage, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        toastView.addView(toastText, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        Toast toast = new Toast(getContext());
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(toastView);
+        toast.show();
+
+    }
+
+    @Override
+    public void onNothingSelected() {
+        SpannableString user_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart1_desc));
+        mChartUser.setCenterText(user_chart_title);
+
+    }
 }

@@ -5,7 +5,7 @@
             <CheckBoxPreference
                 android:key="enable_newsletter"
                 android:icon="@drawable/notification_important_24dp"
-                android:title="@string/newsletter"
+                android:title="@string/account_newsletter"
                 android:summaryOn="On"
                 android:summaryOff="Off"
                 android:defaultValue="false" />

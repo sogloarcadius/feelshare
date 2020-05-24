@@ -1,103 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_title">Acerca</string>
+
+    <!--  =====     Users Management   ====  -->
+
+    <string name="account_greeting_user">Hola %s</string>
+    <string name="account_username">Nombre de usuario : %s</string>
+    <string name="account_hello_user">Hola %s !</string>
+    <string name="account_intro_message">Feelshare es una applicaciòn que te permite ver como la gente se sienten en el mundo y como sueles sentirte !</string>
+    <string name="account_email">nombre@dominio.es</string>
     <string name="account_feelshare_desc">Feelshare es una applicaciòn que te permite ver como la gente se sienten en el mundo y como sueles sentirte !</string>
-    <string name="action_notification">Mostrar notificaciones</string>
-    <string name="action_settings">Configurar</string>
-    <string name="conditions_desc">Acceptas las condiciones de usos.</string>
-    <string name="conditions_file">eul.es</string>
-    <string name="user_settings">Preferencias</string>
-    <string name="feelings_message">Compartir tus emociones !</string>
-    <string name="feelings_greeting_user">Hola %s</string>
-    <string name="account_login_error">Intenta mas tarde ...</string>
-    <string name="exit_dialog_title">FeelShare</string>
-    <string name="excited_desc">Exaltación y fogosidad del ánimo, excitado por algo que lo admire o cautive</string>
-    <string name="dialog_log_message">Emocion guardado con exitò</string>
-    <string name="share_title">Compatir</string>
-    <string name="about_file">help.es</string>
-    <string name="chart1_desc">Ver todo tus emociònes</string>
-    <string name="chart1_title">Yo</string>
-    <string name="chart3_desc">Ver la mapa de sentimientos en el mundo</string>
-    <string name="chart2_title">El Mundo</string>
-    <string name="chart2_desc">Analyzar Sentimientos del mundo</string>
-    <string name="yes">Si</string>
-    <string name="username">Nombre de usuario</string>
+    <string name="account_login_error">Intenta mas tarde !</string>
     <string name="account_success_login_message">Bienvenido %s !</string>
     <string name="account_success_logout_message">Desconectado %s !</string>
-    <string name="search_view_hint">Buscar aqui</string>
-    <string name="share_desc">Compatir con tus amigos</string>
-    <string name="section_format">test</string>
-    <string name="really_quit">Confirmar ?</string>
     <string name="account_not_logged">Connectate antes !</string>
-    <string name="no_app">Ninguna applicacion corresponde.</string>
-    <string name="no">No</string>
-    <string name="hello">Hola !</string>
-    <string name="general_settings">General</string>
-    <string name="dialog_log">Enviar</string>
-    <string name="dialog_share">Enviar y tweetear !</string>
-    <string name="app_name">Feelshare</string>
-    <string name="dialog_fail_log_message">No hemos podido enviar tus emociònes</string>
-    <string name="chart3_button">Abrir ...</string>
-    <string name="chart3_title">Mapa de sentimientos en el mundo</string>
-    <string name="confused_desc">Poco perceptible, difícil de distinguir.</string>
-    <string name="afraid_desc">Angustia por un riesgo o daño real o imaginario</string>
-    <string name="angry_desc">Molestar, desazonar</string>
-    <string name="bore_desc">Que causa aburrimiento.</string>
-    <string name="cool_desc">sentirse bien, relajado</string>
-    <string name="crying_desc">Derramar lágrimas</string>
-    <string name="depression_desc">Síndrome caracterizado por una tristeza profunda y por la inhibición de las funciones psíquicas, a veces con trastornos neurovegetativos.</string>
-    <string name="frustated_desc">Del lat. frustrāre. Privar a alguien de lo que esperaba</string>
-    <string name="funny_desc">Que resulta agradable o atractivo a la vista.</string>
-    <string name="happy_desc">Que tiene felicidad.</string>
-    <string name="hungry_desc">Gana y necesidad de comer.</string>
-    <string name="intro_message">Feelshare es una applicaciòn que te permite ver como la gente se sienten en el mundo y como sueles sentirte !</string>
-    <string name="naughty_desc">De valor negativo, falto de las cualidades que cabe atribuirle por su naturaleza, función o destino.</string>
-    <string name="navigation_drawer_close">Abrir menu</string>
-    <string name="neutral_desc">Carente de rasgos distintivos o expresivos</string>
-    <string name="romantic_desc">Sentimental, generoso y soñador</string>
-    <string name="sad_desc">Que denota pesadumbre o melancolía</string>
-    <string name="scared_desc">Que muestra susto</string>
-    <string name="shy_desc">Temeroso, medroso, encogido y corto de ánimo.</string>
-    <string name="sick_desc">Que padece enfermedad.</string>
-    <string name="sleepy_desc">Muy inclinado a dormir.</string>
-    <string name="surprised_desc">Conmover, suspender o maravillar con algo imprevisto, raro o incomprensible</string>
-    <string name="tired_desc">Que manifiesta cansancio</string>
     <string name="account_already_login">Conectado como %s</string>
-    <string name="email">nombre@dominio.es</string>
-    <string name="navigation_drawer_open">Cerrar menu</string>
-    <string name="afraid">Tener miedo</string>
-    <string name="angry">Enojado</string>
-    <string name="bore">Aburrido</string>
-    <string name="confused">Confuso</string>
-    <string name="cool">Cool</string>
-    <string name="crying">Llorando</string>
-    <string name="depression">Depresion</string>
-    <string name="excited">Entusiasmado</string>
-    <string name="frustated">Frustración</string>
-    <string name="funny">Gracioso</string>
-    <string name="happy">Feliz</string>
-    <string name="hungry">Tener hambre</string>
-    <string name="naughty">traviesa</string>
-    <string name="neutral">Neutro</string>
-    <string name="romantic">Romantico</string>
-    <string name="sad">Triste</string>
-    <string name="scared">Asustado</string>
-    <string name="shy">Timido</string>
-    <string name="sick">Enfermo</string>
-    <string name="sleepy">Dormillon</string>
-    <string name="surprised">Sorprendido</string>
-    <string name="tired">Cansado</string>
-    <string name="share_app_select">Seleciona aplicacion para compartir</string>
-    <string name="title_account">Cuenta</string>
-    <string name="title_feelings">Emociones</string>
-    <string name="title_support">Soporte</string>
-    <string name="title_user_charts">Yo</string>
-    <string name="title_world_charts">El Mundo</string>
-    <string name="moods">Emociones</string>
-    <string name="conditions">Licencia</string>
-    <string name="share">Compartir</string>
     <string name="account_logout_button">Desconectarse</string>
-    <string name="ok">OK</string>
     <string name="account_info">
         <![CDATA[
         <br/>
@@ -110,14 +27,108 @@
     <string name="account_delete_button">Suprimir</string>
     <string name="account_confirm_delete">Confirmar ?</string>
     <string name="account_confirm_logout">Confirmar ?</string>
-    <string name="newsletter">Recibir noticias por correo</string>
-    <string name="about">Feelshare</string>
-    <string name="about_desc">Saber mas sobre Feelshare. Como Feelshare funciona ?</string>
     <string name="account_network_error">Sin accesso a internet !</string>
     <string name="account_signin_cancelled">Error, Intenta mas tarde !</string>
     <string name="account_sync_newspref_error">Error con la sincronización de preferencias, Intenta mas tarde !</string>
-    <string name="account_sync_newspref_success">Sincronización de preferencias con exito !</string>
-    <string name="mood_cancel">"Cancelar ! "</string>
-    <string name="mood_send">Enviar !</string>
+    <string name="account_sync_newspref_success">Sincronización de preferencias con éxito !</string>
+    <string name="account_newsletter">Recibir noticias por correo</string>
+
+
+    <!--   =====   General   =====  -->
+
+    <string name="action_notification">Mostrar notificaciones</string>
+    <string name="action_settings">Configurar</string>
+    <string name="user_settings">Preferencias</string>
+    <string name="exit_dialog_title">FeelShare</string>
+    <string name="yes">Si</string>
+    <string name="really_quit">Confirmar ?</string>
+    <string name="no">No</string>
+    <string name="general_settings">General</string>
+    <string name="app_name">Feelshare</string>
+    <string name="navigation_drawer_close">Abrir menu</string>
+    <string name="navigation_drawer_open">Cerrar menu</string>
+    <string name="title_account">Cuenta</string>
+    <string name="title_feelings">Emociones</string>
+    <string name="title_support">Soporte</string>
+    <string name="moods">Emociones</string>
+    <string name="ok">OK</string>
+
+    <!--  =====   Menu    =====  -->
+
+    <string name="about">Feelshare</string>
+    <string name="about_title">Acerca</string>
+    <string name="about_file">help.es</string>
+    <string name="about_desc">Saber mas sobre Feelshare. Como Feelshare funciona ?</string>
+    <string name="conditions">Licencia</string>
+    <string name="conditions_desc">Acceptas las condiciones de usos.</string>
+    <string name="conditions_file">eul.es</string>
+    <string name="share">Compartir</string>
+    <string name="share_title">Compatir</string>
+    <string name="share_desc">Compatir con tus amigos</string>
+    <string name="share_app_select">Seleciona aplicacion para compartir</string>
+    <string name="share_no_app">Ninguna applicacion corresponde.</string>
+
+
+    <!-- ==== charts === -->
+
+    <string name="chart1_desc">Mis emociònes</string>
+    <string name="chart1_title">Yo</string>
+    <string name="chart2_title">Mundo</string>
+    <string name="chart2_desc">Emociònes del mundo</string>
+
+    <!-- =====    Moods =====  -->
+
+    <string name="mood_send">Enviar</string>
+    <string name="mood_cancel">Cancelar</string>
+    <string name="search_view_hint">Buscar aqui…</string>
+    <string name="dialog_log_message">Emocion guardado con exitò !</string>
+    <string name="dialog_fail_log_message">Error !</string>
+
+
+    <string name="afraid">Asustado</string>
+    <string name="afraid_desc"><![CDATA[ temeroso, espantado ]]></string>
+    <string name="angry">Enojado</string>
+    <string name="angry_desc"><![CDATA[ enfadado, molesto ]]></string>
+    <string name="bore">Aburrido</string>
+    <string name="bore_desc"><![CDATA[ harto, fastidiado, desanimado ]]></string>
+    <string name="confused">Confuso</string>
+    <string name="confused_desc"><![CDATA[ enredado, desordenado ]]></string>
+    <string name="cool">Genial</string>
+    <string name="cool_desc">"<![CDATA[ relajado, chévere, buena onda]]> "</string>
+    <string name="crying">Llorando</string>
+    <string name="crying_desc"><![CDATA[ triste  ]]></string>
+    <string name="depression">Depresion</string>
+    <string name="depression_desc">"<![CDATA[ tristeza profunda  ]]>  "</string>
+    <string name="excited">Entusiasmado</string>
+    <string name="excited_desc"><![CDATA[ ánimo, alegria ]]></string>
+    <string name="frustated">Frustración</string>
+    <string name="frustated_desc"><![CDATA[ desilusión, decepción ]]></string>
+    <string name="funny">Gracioso</string>
+    <string name="funny_desc"><![CDATA[ festivo, chistoso, agradable  ]]></string>
+    <string name="happy">Feliz</string>
+    <string name="happy_desc"><![CDATA[ contento, alegre ]]></string>
+    <string name="hungry">Hambriento</string>
+    <string name="hungry_desc"><![CDATA[ muerto de hambre]]></string>
+    <string name="naughty">Pillo</string>
+    <string name="naughty_desc"><![CDATA[ picaro  ]]></string>
+    <string name="neutral">Indiferente</string>
+    <string name="neutral_desc"><![CDATA[ imparcial, neutro, pasivo ]]></string>
+    <string name="romantic">Romantico</string>
+    <string name="romantic_desc">"<![CDATA[ sentimental, generoso y soñador, enamorado  ]]> "</string>
+    <string name="sad">Triste</string>
+    <string name="sad_desc"><![CDATA[  nostalgia, pena ]]></string>
+    <string name="scared">Asustado</string>
+    <string name="scared_desc">"<![CDATA[ susto, espantado  ]]> "</string>
+    <string name="shy">Timido</string>
+    <string name="shy_desc"><![CDATA[ sin ánimo ]]></string>
+    <string name="sick">Enfermo</string>
+    <string name="sick_desc"><![CDATA[ infectado, indispuesto ]]></string>
+    <string name="sleepy">Somnoliento</string>
+    <string name="sleepy_desc"><![CDATA[ soñoliento, adormilado, tener sueño ]]></string>
+    <string name="surprised">Sorprendido</string>
+    <string name="surprised_desc">"<![CDATA[ maravillar con algo imprevisto, raro o incomprensible ]]> "</string>
+    <string name="tired">Cansado</string>
+    <string name="tired_desc">"<![CDATA[ agotado, destrozado  ]]> "</string>
+
 
 </resources>
