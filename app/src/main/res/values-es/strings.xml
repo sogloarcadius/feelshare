@@ -94,11 +94,11 @@
     <string name="confused">Confuso</string>
     <string name="confused_desc"><![CDATA[ enredado, desordenado ]]></string>
     <string name="cool">Genial</string>
-    <string name="cool_desc">"<![CDATA[ relajado, chévere, buena onda]]> "</string>
+    <string name="cool_desc"><![CDATA[ relajado, chévere, buena onda]]></string>
     <string name="crying">Llorando</string>
     <string name="crying_desc"><![CDATA[ triste  ]]></string>
     <string name="depression">Depresion</string>
-    <string name="depression_desc">"<![CDATA[ tristeza profunda  ]]>  "</string>
+    <string name="depression_desc"><![CDATA[ tristeza profunda  ]]></string>
     <string name="excited">Entusiasmado</string>
     <string name="excited_desc"><![CDATA[ ánimo, alegria ]]></string>
     <string name="frustated">Frustración</string>
@@ -114,11 +114,11 @@
     <string name="neutral">Indiferente</string>
     <string name="neutral_desc"><![CDATA[ imparcial, neutro, pasivo ]]></string>
     <string name="romantic">Romantico</string>
-    <string name="romantic_desc">"<![CDATA[ sentimental, generoso y soñador, enamorado  ]]> "</string>
+    <string name="romantic_desc"><![CDATA[ sentimental, generoso y soñador, enamorado  ]]></string>
     <string name="sad">Triste</string>
     <string name="sad_desc"><![CDATA[  nostalgia, pena ]]></string>
     <string name="scared">Asustado</string>
-    <string name="scared_desc">"<![CDATA[ susto, espantado  ]]> "</string>
+    <string name="scared_desc"><![CDATA[ susto, espantado  ]]></string>
     <string name="shy">Timido</string>
     <string name="shy_desc"><![CDATA[ sin ánimo ]]></string>
     <string name="sick">Enfermo</string>
@@ -126,9 +126,9 @@
     <string name="sleepy">Somnoliento</string>
     <string name="sleepy_desc"><![CDATA[ soñoliento, adormilado, tener sueño ]]></string>
     <string name="surprised">Sorprendido</string>
-    <string name="surprised_desc">"<![CDATA[ maravillar con algo imprevisto, raro o incomprensible ]]> "</string>
+    <string name="surprised_desc"><![CDATA[ maravillar con algo imprevisto, raro o incomprensible ]]></string>
     <string name="tired">Cansado</string>
-    <string name="tired_desc">"<![CDATA[ agotado, destrozado  ]]> "</string>
+    <string name="tired_desc"><![CDATA[ agotado, destrozado  ]]></string>
 
 
 </resources>

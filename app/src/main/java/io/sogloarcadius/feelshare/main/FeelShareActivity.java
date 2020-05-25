@@ -180,7 +180,7 @@ public class FeelShareActivity extends AppCompatActivity {
                 R.drawable.sick,
                 R.drawable.sleepy,
                 R.drawable.surprised,
-                R.drawable.tired,
+                R.drawable.tired
         };
 
         //reference to descriptions
