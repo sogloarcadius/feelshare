@@ -8,14 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.text.SpannableString;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -47,6 +45,9 @@ public class WorldChartFragment extends Fragment implements OnChartValueSelected
 
     private static final String TAG = "WorldChartFragment" ;
     private PieChart mChartWorld;
+    private ImageView moodSelectedImage;
+    private TextView moodSelectedDescription;
+
 
     private FeelShareApplication context;
 
@@ -121,9 +122,13 @@ public class WorldChartFragment extends Fragment implements OnChartValueSelected
         // World PieChart
         mTfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         mTfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
-        mChartWorld = (PieChart) view.findViewById(R.id.chart);
+        mChartWorld = (PieChart) view.findViewById(R.id.chart_world);
         mChartWorld.setOnChartValueSelectedListener(this);
         configureWorldPieChart();
+
+        // Labels in piechart center
+        moodSelectedImage = (ImageView) view.findViewById(R.id.chart_world_selected_img);
+        moodSelectedDescription = (TextView) view.findViewById(R.id.chart_world_selected_desc);
 
 
     }
@@ -176,7 +181,10 @@ public class WorldChartFragment extends Fragment implements OnChartValueSelected
 
     private void configureWorldPieChart() {
 
-        SpannableString world_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart2_desc));
+        // Title in PieChart center
+        //SpannableString world_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart2_desc));
+        //mChartWorld.setCenterTextTypeface(mTfLight);
+        //mChartWorld.setCenterText(world_chart_title);
 
         // all possible touch-interactions with the chart
         mChartWorld.setTouchEnabled(true);
@@ -190,8 +198,7 @@ public class WorldChartFragment extends Fragment implements OnChartValueSelected
 
         mChartWorld.setDragDecelerationFrictionCoef(0.95f);
 
-        mChartWorld.setCenterTextTypeface(mTfLight);
-        mChartWorld.setCenterText(world_chart_title);
+
 
         mChartWorld.setDrawHoleEnabled(true);
         mChartWorld.setHoleColor(Color.WHITE);
@@ -324,38 +331,18 @@ public class WorldChartFragment extends Fragment implements OnChartValueSelected
     @Override
     public void onValueSelected(Entry e, Highlight h) {
 
-        Log.v(TAG, "I Clicked on " + moodsNames[(int)h.getX()] + " : " + h.getY());
+        Log.v(TAG, "Clicked on " + moodsNames[(int)h.getX()] + " : " + h.getY());
 
-        mChartWorld.setCenterText(moodsNames[(int)h.getX()]);
-
-
-        LinearLayout toastView = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER;
-        toastView.setLayoutParams(layoutParams);
-        toastView.setGravity(Gravity.CENTER);
-        toastView.setOrientation(LinearLayout.VERTICAL);
-
-
-        ImageView toastImage = new ImageView(getContext());
-        toastImage.setImageResource(moodsImages[(int)h.getX()]);
-
-        TextView toastText = new TextView(getContext());
-        toastText.setText(moodsNames[(int)h.getX()]);
-
-        toastView.addView(toastImage, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        toastView.addView(toastText, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        Toast toast = new Toast(getContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(toastView);
-        toast.show();
+        moodSelectedDescription.setText(moodsNames[(int)h.getX()]);
+        moodSelectedImage.setImageResource(moodsImages[(int)h.getX()]);
 
     }
 
     @Override
     public void onNothingSelected() {
-        SpannableString world_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart2_desc));
-        mChartWorld.setCenterText(world_chart_title);
+        SpannableString mDescription = new SpannableString(getActivity().getResources().getString(R.string.chart2_desc));
+        moodSelectedDescription.setText(mDescription);
+        moodSelectedImage.setImageDrawable(null);
     }
 
 

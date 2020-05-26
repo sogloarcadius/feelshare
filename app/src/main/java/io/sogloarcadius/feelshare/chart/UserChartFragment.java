@@ -9,14 +9,12 @@ import androidx.fragment.app.Fragment;
 
 import android.text.SpannableString;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -24,9 +22,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -53,6 +49,8 @@ public class UserChartFragment extends Fragment implements OnChartValueSelectedL
     private static final String TAG = "UserChartFragment";
 
     private PieChart mChartUser;
+    private ImageView moodSelectedImage;
+    private TextView moodSelectedDescription;
 
     private FeelShareApplication context;
 
@@ -125,10 +123,13 @@ public class UserChartFragment extends Fragment implements OnChartValueSelectedL
         // PieChart User
         mTfRegular = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Regular.ttf");
         mTfLight = Typeface.createFromAsset(getActivity().getAssets(), "OpenSans-Light.ttf");
-        mChartUser = (PieChart) view.findViewById(R.id.chartuser);
+        mChartUser = (PieChart) view.findViewById(R.id.chart_user);
         mChartUser.setOnChartValueSelectedListener(this);
         configureUserPieChart();
 
+        // Labels in piechart center
+        moodSelectedImage = (ImageView) view.findViewById(R.id.chart_user_selected_img);
+        moodSelectedDescription = (TextView) view.findViewById(R.id.chart_user_selected_desc);
 
     }
 
@@ -194,7 +195,11 @@ public class UserChartFragment extends Fragment implements OnChartValueSelectedL
 
     private void configureUserPieChart() {
 
-        SpannableString user_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart1_desc));
+        // Title in PieChart center
+        //SpannableString user_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart1_desc));
+        //mChartUser.setCenterTextTypeface(mTfLight);
+        //mChartUser.setCenterText(user_chart_title);
+
 
         // all possible touch-interactions with the chart
         mChartUser.setTouchEnabled(true);
@@ -209,8 +214,7 @@ public class UserChartFragment extends Fragment implements OnChartValueSelectedL
 
         mChartUser.setDragDecelerationFrictionCoef(0.95f);
 
-        mChartUser.setCenterTextTypeface(mTfLight);
-        mChartUser.setCenterText(user_chart_title);
+
 
         mChartUser.setDrawHoleEnabled(true);
         mChartUser.setHoleColor(Color.WHITE);
@@ -340,38 +344,17 @@ public class UserChartFragment extends Fragment implements OnChartValueSelectedL
     @Override
     public void onValueSelected(Entry e, Highlight h) {
 
-        Log.v(TAG, "I Clicked on " + moodsNames[(int)h.getX()] + " : " + h.getY());
+        Log.v(TAG, "Clicked on " + moodsNames[(int)h.getX()] + " : " + h.getY());
 
-        mChartUser.setCenterText(moodsNames[(int)h.getX()]);
-
-
-        LinearLayout toastView = new LinearLayout(getContext());
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.CENTER;
-        toastView.setLayoutParams(layoutParams);
-        toastView.setGravity(Gravity.CENTER);
-        toastView.setOrientation(LinearLayout.VERTICAL);
-
-
-        ImageView toastImage = new ImageView(getContext());
-        toastImage.setImageResource(moodsImages[(int)h.getX()]);
-
-        TextView toastText = new TextView(getContext());
-        toastText.setText(moodsNames[(int)h.getX()]);
-
-        toastView.addView(toastImage, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        toastView.addView(toastText, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        Toast toast = new Toast(getContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(toastView);
-        toast.show();
+        moodSelectedDescription.setText(moodsNames[(int)h.getX()]);
+        moodSelectedImage.setImageResource(moodsImages[(int)h.getX()]);
 
     }
 
     @Override
     public void onNothingSelected() {
-        SpannableString user_chart_title = new SpannableString(getActivity().getResources().getString(R.string.chart1_desc));
-        mChartUser.setCenterText(user_chart_title);
-
+        SpannableString mDescription = new SpannableString(getActivity().getResources().getString(R.string.chart1_desc));
+        moodSelectedDescription.setText(mDescription);
+        moodSelectedImage.setImageDrawable(null);
     }
 }

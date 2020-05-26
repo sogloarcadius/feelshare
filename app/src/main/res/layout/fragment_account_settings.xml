@@ -51,10 +51,12 @@
                 android:drawableLeft="@drawable/settings_black_24"
                 android:text="@string/user_settings" />
 
+            <!--
             <View
                 android:layout_below="@+id/account_preferences"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
+            -->
 
         </RelativeLayout>
 

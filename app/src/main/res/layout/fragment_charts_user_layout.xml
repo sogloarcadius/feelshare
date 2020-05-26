@@ -1,35 +1,39 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp" />
-
-        <TextView
-            android:id="@+id/chartuser_title"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:gravity="center"
-            android:text="@string/chart1_title"
-            android:textColor="@color/colorAccent"
-            android:textSize="20sp" />
-
-
         <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/chartuser"
+            android:id="@+id/chart_user"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="450dp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="50dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
 
+            <ImageView
+                android:id="@+id/chart_user_selected_img"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/chart_user_selected_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/chart1_desc"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 </ScrollView>
