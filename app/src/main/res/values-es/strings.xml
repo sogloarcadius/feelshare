@@ -68,6 +68,21 @@
     <string name="share_app_select">Seleciona aplicacion para compartir</string>
     <string name="share_no_app">Ninguna applicacion corresponde.</string>
 
+    <!-- Maps -->
+
+    <string name="map_info">
+        <![CDATA[
+        <strong>Pais</strong>&nbsp;:&nbsp;%s
+        <br/>
+        <strong>Top Mood</strong>&nbsp;:&nbsp;%s
+        <br/>
+        ]]>
+    </string>
+
+    <string name="map_action">Google Map</string>
+    <string name="map_title">Top Mood</string>
+
+
 
     <!-- ==== charts === -->
 

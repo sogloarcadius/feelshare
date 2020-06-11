@@ -33,30 +33,26 @@ import io.sogloarcadius.feelshare.R;
 import io.sogloarcadius.feelshare.account.AccountFragment;
 import io.sogloarcadius.feelshare.chart.UserChartFragment;
 import io.sogloarcadius.feelshare.chart.WorldChartFragment;
+import io.sogloarcadius.feelshare.map.MapActivity;
 import io.sogloarcadius.feelshare.mood.MoodFragment;
+import io.sogloarcadius.feelshare.preference.PreferenceActivity;
 import io.sogloarcadius.feelshare.support.WebViewActivity;
 
 public class FeelShareActivity extends AppCompatActivity {
 
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private final String TAG = "FeelShareMainActivity";
     private static final int RC_SIGN_IN = 1;
 
-    private Integer[] moodsUID;
-    private String[] moodsNames;
-    private String[] moodsDesc;
-    private Integer[] moodsImages;
+    // firebase
+    private FirebaseAuth mFirebaseAuth;
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    private final String TAG = "FeelShareMainActivity";
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
     private List fragments = new Vector();
-    private FeelShareApplication context;
 
-    // constructeur
     public FeelShareActivity() {
-        Log.d(TAG, "constructor");
     }
 
     @Override
@@ -104,117 +100,6 @@ public class FeelShareActivity extends AppCompatActivity {
             }
         };
 
-
-        //references to moods ID
-        moodsUID = new Integer[]{
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                18,
-                19,
-                20,
-                21
-        };
-
-        // ==references to our images title
-        moodsNames = new String[]{
-                getResources().getString(R.string.afraid),
-                getResources().getString(R.string.angry),
-                getResources().getString(R.string.bore),
-                getResources().getString(R.string.naughty),
-                getResources().getString(R.string.confused),
-                getResources().getString(R.string.cool),
-                getResources().getString(R.string.crying),
-                getResources().getString(R.string.depression),
-                getResources().getString(R.string.excited),
-                getResources().getString(R.string.frustated),
-                getResources().getString(R.string.funny),
-                getResources().getString(R.string.happy),
-                getResources().getString(R.string.hungry),
-                getResources().getString(R.string.neutral),
-                getResources().getString(R.string.romantic),
-                getResources().getString(R.string.sad),
-                getResources().getString(R.string.scared),
-                getResources().getString(R.string.shy),
-                getResources().getString(R.string.sick),
-                getResources().getString(R.string.sleepy),
-                getResources().getString(R.string.surprised),
-                getResources().getString(R.string.tired)
-        };
-
-        //references to our images
-        moodsImages = new Integer[]{
-                R.drawable.afraid,
-                R.drawable.angry,
-                R.drawable.bored,
-                R.drawable.childish,
-                R.drawable.confused,
-                R.drawable.cool,
-                R.drawable.crying,
-                R.drawable.depressed,
-                R.drawable.excited,
-                R.drawable.frustrated,
-                R.drawable.funny,
-                R.drawable.happy,
-                R.drawable.hungry,
-                R.drawable.neutral,
-                R.drawable.romantic,
-                R.drawable.sad,
-                R.drawable.scared,
-                R.drawable.shy,
-                R.drawable.sick,
-                R.drawable.sleepy,
-                R.drawable.surprised,
-                R.drawable.tired
-        };
-
-        //reference to descriptions
-        moodsDesc = new String[]{
-                getResources().getString(R.string.afraid_desc),
-                getResources().getString(R.string.angry_desc),
-                getResources().getString(R.string.bore_desc),
-                getResources().getString(R.string.naughty_desc),
-                getResources().getString(R.string.confused_desc),
-                getResources().getString(R.string.cool_desc),
-                getResources().getString(R.string.crying_desc),
-                getResources().getString(R.string.depression_desc),
-                getResources().getString(R.string.excited_desc),
-                getResources().getString(R.string.frustated_desc),
-                getResources().getString(R.string.funny_desc),
-                getResources().getString(R.string.happy_desc),
-                getResources().getString(R.string.hungry_desc),
-                getResources().getString(R.string.neutral_desc),
-                getResources().getString(R.string.romantic_desc),
-                getResources().getString(R.string.sad_desc),
-                getResources().getString(R.string.scared_desc),
-                getResources().getString(R.string.shy_desc),
-                getResources().getString(R.string.sick_desc),
-                getResources().getString(R.string.sleepy_desc),
-                getResources().getString(R.string.surprised_desc),
-                getResources().getString(R.string.tired_desc)
-        };
-
-        context = ((FeelShareApplication) getApplicationContext());
-        context.setMoodsDesc(moodsDesc);
-        context.setMoodsImages(moodsImages);
-        context.setMoodsNames(moodsNames);
-        context.setMoodsUID(moodsUID);
-
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -226,6 +111,7 @@ public class FeelShareActivity extends AppCompatActivity {
         fragments.add(MoodFragment.newInstance("Feelings"));
         fragments.add(UserChartFragment.newInstance("User"));
         fragments.add(WorldChartFragment.newInstance("World"));
+        //fragments.add(MapViewFragment.newInstance("Map"));
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getApplicationContext(), getSupportFragmentManager(), fragments);
 
@@ -240,7 +126,6 @@ public class FeelShareActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        Log.d(TAG, "Création menu en cours");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -265,12 +150,19 @@ public class FeelShareActivity extends AppCompatActivity {
 
             startActivity(intent);
         }
+
         if (id == R.id.action_share) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TEXT, "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID);
             startActivity(Intent.createChooser(intent, getString(R.string.share_app_select)));
         }
+
+        if (id == R.id.action_map){
+            Intent mIntent = new Intent(this, MapActivity.class);
+            startActivity(mIntent);
+        }
+
         // parent
         return super.onOptionsItemSelected(item);
     }

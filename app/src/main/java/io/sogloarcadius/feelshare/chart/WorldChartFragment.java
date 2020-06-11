@@ -141,6 +141,12 @@ public class WorldChartFragment extends Fragment implements OnChartValueSelected
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        attachDatabaseReadListener();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         detachDatabaseReadListener();

@@ -70,6 +70,20 @@
     <string name="share_app_select">Selectionez votre application de partage</string>
     <string name="share_no_app">Aucune application de partage</string>
 
+    <!-- Maps -->
+
+    <string name="map_info">
+        <![CDATA[
+        <strong>Pays</strong>&nbsp;:&nbsp;%s
+        <br/>
+        <strong>Top Mood</strong>&nbsp;:&nbsp;%s
+        <br/>
+        ]]>
+    </string>
+
+    <string name="map_action">Google Map</string>
+    <string name="map_title">Top Mood</string>
+
 
 
     <!-- == charts === -->

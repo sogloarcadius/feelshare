@@ -80,6 +80,20 @@
     <string name="share_title">Share</string>
     <string name="share_desc">Share with your friends !</string>
 
+    <!-- Maps -->
+
+    <string name="map_info">
+        <![CDATA[
+        <strong>Country</strong>&nbsp;:&nbsp;%s
+        <br/>
+        <strong>Top Mood</strong>&nbsp;:&nbsp;%s
+        <br/>
+        ]]>
+    </string>
+
+    <string name="map_action">Google Map</string>
+    <string name="map_title">Top Mood</string>
+
 
     <!-- == charts === -->
 

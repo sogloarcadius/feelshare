@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.AlertDialog;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 import io.sogloarcadius.feelshare.R;
 import io.sogloarcadius.feelshare.main.FeelShareApplication;
 import io.sogloarcadius.feelshare.model.Mood;
@@ -70,9 +72,6 @@ public class MoodFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        context = ((FeelShareApplication) getActivity().getApplicationContext());
-
         View rootView = inflater.inflate(R.layout.fragment_feelings_layout, container, false);
         return rootView;
     }
@@ -84,6 +83,8 @@ public class MoodFragment extends Fragment {
         // Firebase
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mMoodsDatabaseReference = mFirebaseDatabase.getReference().child("moods");
+
+        context = ((FeelShareApplication) getActivity().getApplicationContext());
 
         moodsDesc = context.getMoodsDesc();
         moodsImages = context.getMoodsImages();
@@ -159,10 +160,13 @@ public class MoodFragment extends Fragment {
 
     }
 
+
+
+
     private void updateFirebaseDataBase(Integer id) {
 
-        // country
-        String country = getContext().getResources().getConfiguration().locale.getCountry();
+        // device country
+        String country = context.getDeviceCountry();
 
         // Email
         FirebaseUser authenticatedUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -174,7 +178,7 @@ public class MoodFragment extends Fragment {
         }
 
         // internet connection
-        ConnectivityManager cm = (ConnectivityManager)getActivity().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo nInfo = cm.getActiveNetworkInfo();
         boolean connected = nInfo != null && nInfo.isAvailable() && nInfo.isConnected();
 

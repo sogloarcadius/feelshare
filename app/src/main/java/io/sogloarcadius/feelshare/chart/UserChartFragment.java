@@ -155,8 +155,6 @@ public class UserChartFragment extends Fragment implements OnChartValueSelectedL
 
 
 
-
-
     private void attachDatabaseReadListener() {
         if (mChildEventListener == null) {
             mChildEventListener = new ChildEventListener() {
