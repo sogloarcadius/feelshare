@@ -44,7 +44,6 @@
     <string name="really_quit">Confirmar ?</string>
     <string name="no">No</string>
     <string name="general_settings">General</string>
-    <string name="app_name">Feelshare</string>
     <string name="navigation_drawer_close">Abrir menu</string>
     <string name="navigation_drawer_open">Cerrar menu</string>
     <string name="title_account">Cuenta</string>
@@ -55,16 +54,11 @@
 
     <!--  =====   Menu    =====  -->
 
-    <string name="about">Feelshare</string>
-    <string name="about_title">Acerca</string>
+    <string name="about_title">Feelshare</string>
     <string name="about_file">help.es</string>
-    <string name="about_desc">Saber mas sobre Feelshare. Como Feelshare funciona ?</string>
-    <string name="conditions">Licencia</string>
-    <string name="conditions_desc">Acceptas las condiciones de usos.</string>
+    <string name="conditions_title">Licencia</string>
     <string name="conditions_file">eul.es</string>
-    <string name="share">Compartir</string>
     <string name="share_title">Compatir</string>
-    <string name="share_desc">Compatir con tus amigos</string>
     <string name="share_app_select">Seleciona aplicacion para compartir</string>
     <string name="share_no_app">Ninguna applicacion corresponde.</string>
 

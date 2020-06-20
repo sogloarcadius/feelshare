@@ -35,7 +35,6 @@
 
     <!--   =====   General   =====  -->
 
-    <string name="app_name">Feelshare</string>
     <string name="action_notification">Notification</string>
     <string name="action_settings">Configurer</string>
 
@@ -57,15 +56,10 @@
 
     <!--  =====   Menu    =====  -->
 
-    <string name="about">A Propos</string>
     <string name="about_title">Feelshare</string>
     <string name="about_file">help.fr</string>
-    <string name="about_desc">Information sur Feelshare. Comment fonctionne Feelshare ?</string>
-    <string name="conditions">CGU</string>
-    <string name="conditions_desc">Veuillez lire les CGU.</string>
+    <string name="conditions_title">CGU</string>
     <string name="conditions_file">eul.fr</string>
-    <string name="share">Partager</string>
-    <string name="share_desc">Partager avec mes amis.</string>
     <string name="share_title">Partager</string>
     <string name="share_app_select">Selectionez votre application de partage</string>
     <string name="share_no_app">Aucune application de partage</string>

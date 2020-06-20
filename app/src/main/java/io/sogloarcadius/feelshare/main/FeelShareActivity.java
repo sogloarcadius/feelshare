@@ -139,14 +139,14 @@ public class FeelShareActivity extends AppCompatActivity {
         if (id == R.id.action_licence) {
             Intent intent = new Intent(this, WebViewActivity.class);
             intent.putExtra("file", getString(R.string.conditions_file).toLowerCase());
-            intent.putExtra("title", getString(R.string.conditions).toLowerCase());
+            intent.putExtra("title", getString(R.string.conditions_title).toLowerCase());
             startActivity(intent);
         }
 
         if (id == R.id.action_about) {
             Intent intent = new Intent(this, WebViewActivity.class);
             intent.putExtra("file", getString(R.string.about_file).toLowerCase());
-            intent.putExtra("title", getString(R.string.about).toLowerCase());
+            intent.putExtra("title", getString(R.string.about_title).toLowerCase());
 
             startActivity(intent);
         }

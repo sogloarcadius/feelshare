@@ -32,7 +32,7 @@
                 android:layout_gravity="center"
                 android:text="@string/chart2_desc"
                 android:textColor="@color/colorAccent"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </RelativeLayout>

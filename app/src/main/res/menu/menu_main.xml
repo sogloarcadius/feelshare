@@ -4,16 +4,16 @@
     tools:context="io.sogloarcadius.feelshare.main.FeelShareActivity">
     <item
         android:id="@+id/action_about"
-        android:title="@string/about"
+        android:title="@string/about_title"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_licence"
-        android:title="@string/conditions"
+        android:title="@string/conditions_title"
         android:icon="@android:drawable/ic_menu_share"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_share"
-        android:title="@string/share"
+        android:title="@string/share_title"
         android:icon="@android:drawable/ic_menu_share"
         app:showAsAction="never" />
 
