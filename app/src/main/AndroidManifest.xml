@@ -14,6 +14,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <!-- Firebase messaging (notifications) -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/icon_notification" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorIcons" />
+
+
         <!-- Google Maps -->
         <meta-data
             android:name="com.google.android.gms.version"

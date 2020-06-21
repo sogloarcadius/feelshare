@@ -7,7 +7,7 @@ title = "FEELSHARE"
 
 theme = "kube"
 
-description = "Feelshare is an application to see the world feelings and yours !"
+description = "FeelShare is an application to see the world feelings and yours !"
 
 disableKinds = ["RSS"]
 

@@ -14,8 +14,10 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -35,7 +38,7 @@ import io.sogloarcadius.feelshare.model.SaveUser;
 
 public class PreferenceFragment extends PreferenceFragmentCompat {
 
-    private static final String TAG = "PreferenceFragment" ;
+    private static final String TAG = "PreferenceFragment";
     SharedPreferences.OnSharedPreferenceChangeListener listener;
 
     // firebase
@@ -47,8 +50,8 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
     private Boolean authenticatedUserNewsletterPreference = false;
 
     @Override
-    public void onCreatePreferences(Bundle savedInstanceState, String rootKey)
-    {
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+
         setPreferencesFromResource(R.xml.preferences, rootKey);
 
         // Firebase
@@ -70,12 +73,46 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
         }
 
 
+
         // Listen for changes to preferences and act on changes to synch with server
         listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+                if (key.equals("enable_notification")) {
+
+                    // subscribe user to "notification" topic if "enable_notification" is "true"
+                    if (sharedPreferences.getBoolean(key, false)) {
+
+                        FirebaseMessaging.getInstance().subscribeToTopic("notification")
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.d(TAG, "Failed to subscribe user to notification topic");
+                                        }
+                                        Log.d(TAG, "Success in subscribing user to notification topic");
+                                    }
+                                });
+                    } else {
+                        // unsubscribe user from "notification" topic if "enable_notification" is "false"
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("notification")
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (!task.isSuccessful()) {
+                                            Log.d(TAG, "Failed to unsubscribe user from notification topic");
+                                        }
+                                        Log.d(TAG, "Success to unsubscribe user from notification topic");
+                                    }
+                                });
+                    }
+                }
+
+
                 if (key.equals("enable_newsletter")) {
 
+                    // sync user newsletter preference to firebase realtime database
                     SaveUser saveUser = new SaveUser();
                     saveUser.setUserID(authenticatedUser.getUid());
                     saveUser.setUserName(authenticatedUser.getDisplayName());
@@ -94,6 +131,7 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
                                     Log.e(TAG, e.toString());
                                 }
                             });
+
                 }
             }
         };
@@ -125,9 +163,6 @@ public class PreferenceFragment extends PreferenceFragmentCompat {
                     .show();
             return true;
         });
-
-
-
 
     }
 

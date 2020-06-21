@@ -10,6 +10,14 @@
                 android:summaryOff="Off"
                 android:defaultValue="false" />
 
+            <CheckBoxPreference
+                android:key="enable_notification"
+                android:icon="@drawable/ic_add_alert_black_24dp"
+                android:title="@string/account_notification"
+                android:summaryOn="On"
+                android:summaryOff="Off"
+                android:defaultValue="false" />
+
             <Preference
                 android:key="logout_account"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"

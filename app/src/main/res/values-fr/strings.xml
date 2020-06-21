@@ -23,6 +23,8 @@
     <string name="account_confirm_logout">Confirmation ?</string>
     <string name="account_delete_button">Supprimer</string>
     <string name="account_newsletter">Recevoir la newsletter</string>
+    <string name="account_notification">Recevoir les notifications</string>
+
     <string name="account_network_error">Aucune connectivité réseau !</string>
     <string name="account_signin_cancelled">Authentification interrompu, Veuillez réessayer plus tard !</string>
     <string name="account_sync_newspref_error">Erreur de Synchronisation des préférences !</string>
@@ -36,13 +38,12 @@
     <!--   =====   General   =====  -->
 
     <string name="action_notification">Notification</string>
-    <string name="action_settings">Configurer</string>
-
+    <string name="user_settings">Préférences</string>
+    <string name="action_settings">Préférences</string>
     <string name="exit_dialog_title">FeelShare</string>
     <string name="general_settings">General</string>
     <string name="no">Non</string>
     <string name="really_quit">Confirmation ?</string>
-    <string name="user_settings">Préférences</string>
     <string name="yes">Oui</string>
     <string name="title_account">Compte</string>
     <string name="navigation_drawer_close">Ouvrir menu</string>
@@ -96,7 +97,7 @@
     <string name="dialog_fail_log_message">Erreur !</string>
 
     <string name="afraid">Effrayé</string>
-    <string name="afraid_desc"><![CDATA[  trouille, crainte, frayeur ]]></string>
+    <string name="afraid_desc"><![CDATA[ trouille, crainte, frayeur ]]></string>
     <string name="angry">Enervé</string>
     <string name="angry_desc"><![CDATA[ agacer, exaspérer ]]></string>
     <string name="bore">Ennuyer</string>
@@ -126,7 +127,7 @@
     <string name="romantic">Romantique</string>
     <string name="romantic_desc"><![CDATA[ sensible, tendre, aimable ]]></string>
     <string name="sad">Triste</string>
-    <string name="sad_desc"><![CDATA[ chagrin  ]]></string>
+    <string name="sad_desc"><![CDATA[ chagrin ]]></string>
     <string name="scared">Effrayé</string>
     <string name="scared_desc"><![CDATA[ épouvanter, affoler ]]></string>
     <string name="shy">Timide</string>
